@@ -1,0 +1,3 @@
+[submodule "03-monopol"]
+	path = 03-monopol
+	url = https://gitlab.com/matf-bg-ac-rs/course-rs/projects-2020-2021/03-monopol.git
