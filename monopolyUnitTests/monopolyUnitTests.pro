@@ -12,8 +12,6 @@ TEMPLATE = app
 
 SOURCES += \
         tst_monopoly.cpp
-#        ../03-monopol/monopoly/src/animate_pixmap.cpp
-#        ../03-monopol/monopoly/src/animate_player.cpp
         ../03-monopol/monopoly/src/bank.cpp
         ../03-monopol/monopoly/src/board.cpp
         ../03-monopol/monopoly/src/bot.cpp
@@ -43,8 +41,6 @@ SUBDIRS += \
         ../03-monopol/monopoly/monopoly.pro
 
 HEADERS += \
-#        ../03-monopol/monopoly/include/animate_pixmap.hpp
-#        ../03-monopol/monopoly/include/animate_player.hpp
         ../03-monopol/monopoly/include/bank.hpp
         ../03-monopol/monopoly/include/board.hpp
         ../03-monopol/monopoly/include/bot.hpp
