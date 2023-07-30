@@ -1,0 +1,562 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - report.info - QtGui/qcolor.h</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">QtGui</a> - qcolor.h<span style="font-size: 80%;"> (source / <a href="qcolor.h.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">report.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2023-07-29 22:59:23</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : /****************************************************************************</a>
+<a name="2"><span class="lineNum">       2 </span>            : **</a>
+<a name="3"><span class="lineNum">       3 </span>            : ** Copyright (C) 2020 The Qt Company Ltd.</a>
+<a name="4"><span class="lineNum">       4 </span>            : ** Contact: https://www.qt.io/licensing/</a>
+<a name="5"><span class="lineNum">       5 </span>            : **</a>
+<a name="6"><span class="lineNum">       6 </span>            : ** This file is part of the QtGui module of the Qt Toolkit.</a>
+<a name="7"><span class="lineNum">       7 </span>            : **</a>
+<a name="8"><span class="lineNum">       8 </span>            : ** $QT_BEGIN_LICENSE:LGPL$</a>
+<a name="9"><span class="lineNum">       9 </span>            : ** Commercial License Usage</a>
+<a name="10"><span class="lineNum">      10 </span>            : ** Licensees holding valid commercial Qt licenses may use this file in</a>
+<a name="11"><span class="lineNum">      11 </span>            : ** accordance with the commercial license agreement provided with the</a>
+<a name="12"><span class="lineNum">      12 </span>            : ** Software or, alternatively, in accordance with the terms contained in</a>
+<a name="13"><span class="lineNum">      13 </span>            : ** a written agreement between you and The Qt Company. For licensing terms</a>
+<a name="14"><span class="lineNum">      14 </span>            : ** and conditions see https://www.qt.io/terms-conditions. For further</a>
+<a name="15"><span class="lineNum">      15 </span>            : ** information use the contact form at https://www.qt.io/contact-us.</a>
+<a name="16"><span class="lineNum">      16 </span>            : **</a>
+<a name="17"><span class="lineNum">      17 </span>            : ** GNU Lesser General Public License Usage</a>
+<a name="18"><span class="lineNum">      18 </span>            : ** Alternatively, this file may be used under the terms of the GNU Lesser</a>
+<a name="19"><span class="lineNum">      19 </span>            : ** General Public License version 3 as published by the Free Software</a>
+<a name="20"><span class="lineNum">      20 </span>            : ** Foundation and appearing in the file LICENSE.LGPL3 included in the</a>
+<a name="21"><span class="lineNum">      21 </span>            : ** packaging of this file. Please review the following information to</a>
+<a name="22"><span class="lineNum">      22 </span>            : ** ensure the GNU Lesser General Public License version 3 requirements</a>
+<a name="23"><span class="lineNum">      23 </span>            : ** will be met: https://www.gnu.org/licenses/lgpl-3.0.html.</a>
+<a name="24"><span class="lineNum">      24 </span>            : **</a>
+<a name="25"><span class="lineNum">      25 </span>            : ** GNU General Public License Usage</a>
+<a name="26"><span class="lineNum">      26 </span>            : ** Alternatively, this file may be used under the terms of the GNU</a>
+<a name="27"><span class="lineNum">      27 </span>            : ** General Public License version 2.0 or (at your option) the GNU General</a>
+<a name="28"><span class="lineNum">      28 </span>            : ** Public license version 3 or any later version approved by the KDE Free</a>
+<a name="29"><span class="lineNum">      29 </span>            : ** Qt Foundation. The licenses are as published by the Free Software</a>
+<a name="30"><span class="lineNum">      30 </span>            : ** Foundation and appearing in the file LICENSE.GPL2 and LICENSE.GPL3</a>
+<a name="31"><span class="lineNum">      31 </span>            : ** included in the packaging of this file. Please review the following</a>
+<a name="32"><span class="lineNum">      32 </span>            : ** information to ensure the GNU General Public License requirements will</a>
+<a name="33"><span class="lineNum">      33 </span>            : ** be met: https://www.gnu.org/licenses/gpl-2.0.html and</a>
+<a name="34"><span class="lineNum">      34 </span>            : ** https://www.gnu.org/licenses/gpl-3.0.html.</a>
+<a name="35"><span class="lineNum">      35 </span>            : **</a>
+<a name="36"><span class="lineNum">      36 </span>            : ** $QT_END_LICENSE$</a>
+<a name="37"><span class="lineNum">      37 </span>            : **</a>
+<a name="38"><span class="lineNum">      38 </span>            : ****************************************************************************/</a>
+<a name="39"><span class="lineNum">      39 </span>            : </a>
+<a name="40"><span class="lineNum">      40 </span>            : #ifndef QCOLOR_H</a>
+<a name="41"><span class="lineNum">      41 </span>            : #define QCOLOR_H</a>
+<a name="42"><span class="lineNum">      42 </span>            : </a>
+<a name="43"><span class="lineNum">      43 </span>            : #include &lt;QtGui/qtguiglobal.h&gt;</a>
+<a name="44"><span class="lineNum">      44 </span>            : #include &lt;QtGui/qrgb.h&gt;</a>
+<a name="45"><span class="lineNum">      45 </span>            : #include &lt;QtCore/qnamespace.h&gt;</a>
+<a name="46"><span class="lineNum">      46 </span>            : #include &lt;QtCore/qstringlist.h&gt;</a>
+<a name="47"><span class="lineNum">      47 </span>            : #include &lt;QtGui/qrgba64.h&gt;</a>
+<a name="48"><span class="lineNum">      48 </span>            : </a>
+<a name="49"><span class="lineNum">      49 </span>            : #include &lt;limits.h&gt;</a>
+<a name="50"><span class="lineNum">      50 </span>            : </a>
+<a name="51"><span class="lineNum">      51 </span>            : QT_BEGIN_NAMESPACE</a>
+<a name="52"><span class="lineNum">      52 </span>            : </a>
+<a name="53"><span class="lineNum">      53 </span>            : </a>
+<a name="54"><span class="lineNum">      54 </span>            : class QColor;</a>
+<a name="55"><span class="lineNum">      55 </span>            : class QColormap;</a>
+<a name="56"><span class="lineNum">      56 </span>            : class QVariant;</a>
+<a name="57"><span class="lineNum">      57 </span>            : </a>
+<a name="58"><span class="lineNum">      58 </span>            : #ifndef QT_NO_DEBUG_STREAM</a>
+<a name="59"><span class="lineNum">      59 </span>            : Q_GUI_EXPORT QDebug operator&lt;&lt;(QDebug, const QColor &amp;);</a>
+<a name="60"><span class="lineNum">      60 </span>            : #endif</a>
+<a name="61"><span class="lineNum">      61 </span>            : #ifndef QT_NO_DATASTREAM</a>
+<a name="62"><span class="lineNum">      62 </span>            : Q_GUI_EXPORT QDataStream &amp;operator&lt;&lt;(QDataStream &amp;, const QColor &amp;);</a>
+<a name="63"><span class="lineNum">      63 </span>            : Q_GUI_EXPORT QDataStream &amp;operator&gt;&gt;(QDataStream &amp;, QColor &amp;);</a>
+<a name="64"><span class="lineNum">      64 </span>            : #endif</a>
+<a name="65"><span class="lineNum">      65 </span>            : </a>
+<a name="66"><span class="lineNum">      66 </span>            : class Q_GUI_EXPORT QColor</a>
+<a name="67"><span class="lineNum">      67 </span>            : {</a>
+<a name="68"><span class="lineNum">      68 </span>            : public:</a>
+<a name="69"><span class="lineNum">      69 </span>            :     enum Spec { Invalid, Rgb, Hsv, Cmyk, Hsl, ExtendedRgb };</a>
+<a name="70"><span class="lineNum">      70 </span>            :     enum NameFormat { HexRgb, HexArgb };</a>
+<a name="71"><span class="lineNum">      71 </span>            : </a>
+<a name="72"><span class="lineNum">      72 </span>            :     constexpr QColor() noexcept</a>
+<a name="73"><span class="lineNum">      73 </span>            :         : cspec(Invalid), ct(USHRT_MAX, 0, 0, 0, 0) {}</a>
+<a name="74"><span class="lineNum">      74 </span>            :     QColor(Qt::GlobalColor color) noexcept;</a>
+<a name="75"><span class="lineNum">      75 </span><span class="lineCov">         13 :     constexpr QColor(int r, int g, int b, int a = 255) noexcept</span></a>
+<a name="76"><span class="lineNum">      76 </span><span class="lineCov">         13 :         : cspec(isRgbaValid(r, g, b, a) ? Rgb : Invalid),</span></a>
+<a name="77"><span class="lineNum">      77 </span><span class="lineCov">         13 :           ct(ushort(cspec == Rgb ? a * 0x0101 : 0),</span></a>
+<a name="78"><span class="lineNum">      78 </span><span class="lineCov">         13 :              ushort(cspec == Rgb ? r * 0x0101 : 0),</span></a>
+<a name="79"><span class="lineNum">      79 </span><span class="lineCov">         13 :              ushort(cspec == Rgb ? g * 0x0101 : 0),</span></a>
+<a name="80"><span class="lineNum">      80 </span><span class="lineCov">         13 :              ushort(cspec == Rgb ? b * 0x0101 : 0),</span></a>
+<a name="81"><span class="lineNum">      81 </span><span class="lineCov">         13 :              0) {}</span></a>
+<a name="82"><span class="lineNum">      82 </span>            :     QColor(QRgb rgb) noexcept;</a>
+<a name="83"><span class="lineNum">      83 </span>            :     QColor(QRgba64 rgba64) noexcept;</a>
+<a name="84"><span class="lineNum">      84 </span>            :     inline QColor(const QString&amp; name);</a>
+<a name="85"><span class="lineNum">      85 </span>            :     explicit inline QColor(QStringView name);</a>
+<a name="86"><span class="lineNum">      86 </span>            :     inline QColor(const char *aname) : QColor(QLatin1String(aname)) {}</a>
+<a name="87"><span class="lineNum">      87 </span>            :     inline QColor(QLatin1String name);</a>
+<a name="88"><span class="lineNum">      88 </span>            :     QColor(Spec spec) noexcept;</a>
+<a name="89"><span class="lineNum">      89 </span>            : </a>
+<a name="90"><span class="lineNum">      90 </span>            :     QColor &amp;operator=(Qt::GlobalColor color) noexcept;</a>
+<a name="91"><span class="lineNum">      91 </span>            : </a>
+<a name="92"><span class="lineNum">      92 </span>            :     bool isValid() const noexcept;</a>
+<a name="93"><span class="lineNum">      93 </span>            : </a>
+<a name="94"><span class="lineNum">      94 </span>            :     QString name(NameFormat format = HexRgb) const;</a>
+<a name="95"><span class="lineNum">      95 </span>            : </a>
+<a name="96"><span class="lineNum">      96 </span>            :     void setNamedColor(const QString&amp; name);</a>
+<a name="97"><span class="lineNum">      97 </span>            :     void setNamedColor(QStringView name);</a>
+<a name="98"><span class="lineNum">      98 </span>            :     void setNamedColor(QLatin1String name);</a>
+<a name="99"><span class="lineNum">      99 </span>            : </a>
+<a name="100"><span class="lineNum">     100 </span>            :     static QStringList colorNames();</a>
+<a name="101"><span class="lineNum">     101 </span>            : </a>
+<a name="102"><span class="lineNum">     102 </span>            :     inline Spec spec() const noexcept</a>
+<a name="103"><span class="lineNum">     103 </span>            :     { return cspec; }</a>
+<a name="104"><span class="lineNum">     104 </span>            : </a>
+<a name="105"><span class="lineNum">     105 </span>            :     int alpha() const noexcept;</a>
+<a name="106"><span class="lineNum">     106 </span>            :     void setAlpha(int alpha);</a>
+<a name="107"><span class="lineNum">     107 </span>            : </a>
+<a name="108"><span class="lineNum">     108 </span>            :     float alphaF() const noexcept;</a>
+<a name="109"><span class="lineNum">     109 </span>            :     void setAlphaF(float alpha);</a>
+<a name="110"><span class="lineNum">     110 </span>            : </a>
+<a name="111"><span class="lineNum">     111 </span>            :     int red() const noexcept;</a>
+<a name="112"><span class="lineNum">     112 </span>            :     int green() const noexcept;</a>
+<a name="113"><span class="lineNum">     113 </span>            :     int blue() const noexcept;</a>
+<a name="114"><span class="lineNum">     114 </span>            :     void setRed(int red);</a>
+<a name="115"><span class="lineNum">     115 </span>            :     void setGreen(int green);</a>
+<a name="116"><span class="lineNum">     116 </span>            :     void setBlue(int blue);</a>
+<a name="117"><span class="lineNum">     117 </span>            : </a>
+<a name="118"><span class="lineNum">     118 </span>            :     float redF() const noexcept;</a>
+<a name="119"><span class="lineNum">     119 </span>            :     float greenF() const noexcept;</a>
+<a name="120"><span class="lineNum">     120 </span>            :     float blueF() const noexcept;</a>
+<a name="121"><span class="lineNum">     121 </span>            :     void setRedF(float red);</a>
+<a name="122"><span class="lineNum">     122 </span>            :     void setGreenF(float green);</a>
+<a name="123"><span class="lineNum">     123 </span>            :     void setBlueF(float blue);</a>
+<a name="124"><span class="lineNum">     124 </span>            : </a>
+<a name="125"><span class="lineNum">     125 </span>            :     void getRgb(int *r, int *g, int *b, int *a = nullptr) const;</a>
+<a name="126"><span class="lineNum">     126 </span>            :     void setRgb(int r, int g, int b, int a = 255);</a>
+<a name="127"><span class="lineNum">     127 </span>            : </a>
+<a name="128"><span class="lineNum">     128 </span>            :     void getRgbF(float *r, float *g, float *b, float *a = nullptr) const;</a>
+<a name="129"><span class="lineNum">     129 </span>            :     void setRgbF(float r, float g, float b, float a = 1.0);</a>
+<a name="130"><span class="lineNum">     130 </span>            : </a>
+<a name="131"><span class="lineNum">     131 </span>            :     QRgba64 rgba64() const noexcept;</a>
+<a name="132"><span class="lineNum">     132 </span>            :     void setRgba64(QRgba64 rgba) noexcept;</a>
+<a name="133"><span class="lineNum">     133 </span>            : </a>
+<a name="134"><span class="lineNum">     134 </span>            :     QRgb rgba() const noexcept;</a>
+<a name="135"><span class="lineNum">     135 </span>            :     void setRgba(QRgb rgba) noexcept;</a>
+<a name="136"><span class="lineNum">     136 </span>            : </a>
+<a name="137"><span class="lineNum">     137 </span>            :     QRgb rgb() const noexcept;</a>
+<a name="138"><span class="lineNum">     138 </span>            :     void setRgb(QRgb rgb) noexcept;</a>
+<a name="139"><span class="lineNum">     139 </span>            : </a>
+<a name="140"><span class="lineNum">     140 </span>            :     int hue() const noexcept; // 0 &lt;= hue &lt; 360</a>
+<a name="141"><span class="lineNum">     141 </span>            :     int saturation() const noexcept;</a>
+<a name="142"><span class="lineNum">     142 </span>            :     int hsvHue() const noexcept; // 0 &lt;= hue &lt; 360</a>
+<a name="143"><span class="lineNum">     143 </span>            :     int hsvSaturation() const noexcept;</a>
+<a name="144"><span class="lineNum">     144 </span>            :     int value() const noexcept;</a>
+<a name="145"><span class="lineNum">     145 </span>            : </a>
+<a name="146"><span class="lineNum">     146 </span>            :     float hueF() const noexcept; // 0.0 &lt;= hueF &lt; 360.0</a>
+<a name="147"><span class="lineNum">     147 </span>            :     float saturationF() const noexcept;</a>
+<a name="148"><span class="lineNum">     148 </span>            :     float hsvHueF() const noexcept; // 0.0 &lt;= hueF &lt; 360.0</a>
+<a name="149"><span class="lineNum">     149 </span>            :     float hsvSaturationF() const noexcept;</a>
+<a name="150"><span class="lineNum">     150 </span>            :     float valueF() const noexcept;</a>
+<a name="151"><span class="lineNum">     151 </span>            : </a>
+<a name="152"><span class="lineNum">     152 </span>            :     void getHsv(int *h, int *s, int *v, int *a = nullptr) const;</a>
+<a name="153"><span class="lineNum">     153 </span>            :     void setHsv(int h, int s, int v, int a = 255);</a>
+<a name="154"><span class="lineNum">     154 </span>            : </a>
+<a name="155"><span class="lineNum">     155 </span>            :     void getHsvF(float *h, float *s, float *v, float *a = nullptr) const;</a>
+<a name="156"><span class="lineNum">     156 </span>            :     void setHsvF(float h, float s, float v, float a = 1.0);</a>
+<a name="157"><span class="lineNum">     157 </span>            : </a>
+<a name="158"><span class="lineNum">     158 </span>            :     int cyan() const noexcept;</a>
+<a name="159"><span class="lineNum">     159 </span>            :     int magenta() const noexcept;</a>
+<a name="160"><span class="lineNum">     160 </span>            :     int yellow() const noexcept;</a>
+<a name="161"><span class="lineNum">     161 </span>            :     int black() const noexcept;</a>
+<a name="162"><span class="lineNum">     162 </span>            : </a>
+<a name="163"><span class="lineNum">     163 </span>            :     float cyanF() const noexcept;</a>
+<a name="164"><span class="lineNum">     164 </span>            :     float magentaF() const noexcept;</a>
+<a name="165"><span class="lineNum">     165 </span>            :     float yellowF() const noexcept;</a>
+<a name="166"><span class="lineNum">     166 </span>            :     float blackF() const noexcept;</a>
+<a name="167"><span class="lineNum">     167 </span>            : </a>
+<a name="168"><span class="lineNum">     168 </span>            :     void getCmyk(int *c, int *m, int *y, int *k, int *a = nullptr) const;</a>
+<a name="169"><span class="lineNum">     169 </span>            :     void setCmyk(int c, int m, int y, int k, int a = 255);</a>
+<a name="170"><span class="lineNum">     170 </span>            : </a>
+<a name="171"><span class="lineNum">     171 </span>            :     void getCmykF(float *c, float *m, float *y, float *k, float *a = nullptr) const;</a>
+<a name="172"><span class="lineNum">     172 </span>            :     void setCmykF(float c, float m, float y, float k, float a = 1.0);</a>
+<a name="173"><span class="lineNum">     173 </span>            : </a>
+<a name="174"><span class="lineNum">     174 </span>            :     int hslHue() const noexcept; // 0 &lt;= hue &lt; 360</a>
+<a name="175"><span class="lineNum">     175 </span>            :     int hslSaturation() const noexcept;</a>
+<a name="176"><span class="lineNum">     176 </span>            :     int lightness() const noexcept;</a>
+<a name="177"><span class="lineNum">     177 </span>            : </a>
+<a name="178"><span class="lineNum">     178 </span>            :     float hslHueF() const noexcept; // 0.0 &lt;= hueF &lt; 360.0</a>
+<a name="179"><span class="lineNum">     179 </span>            :     float hslSaturationF() const noexcept;</a>
+<a name="180"><span class="lineNum">     180 </span>            :     float lightnessF() const noexcept;</a>
+<a name="181"><span class="lineNum">     181 </span>            : </a>
+<a name="182"><span class="lineNum">     182 </span>            :     void getHsl(int *h, int *s, int *l, int *a = nullptr) const;</a>
+<a name="183"><span class="lineNum">     183 </span>            :     void setHsl(int h, int s, int l, int a = 255);</a>
+<a name="184"><span class="lineNum">     184 </span>            : </a>
+<a name="185"><span class="lineNum">     185 </span>            :     void getHslF(float *h, float *s, float *l, float *a = nullptr) const;</a>
+<a name="186"><span class="lineNum">     186 </span>            :     void setHslF(float h, float s, float l, float a = 1.0);</a>
+<a name="187"><span class="lineNum">     187 </span>            : </a>
+<a name="188"><span class="lineNum">     188 </span>            :     QColor toRgb() const noexcept;</a>
+<a name="189"><span class="lineNum">     189 </span>            :     QColor toHsv() const noexcept;</a>
+<a name="190"><span class="lineNum">     190 </span>            :     QColor toCmyk() const noexcept;</a>
+<a name="191"><span class="lineNum">     191 </span>            :     QColor toHsl() const noexcept;</a>
+<a name="192"><span class="lineNum">     192 </span>            :     QColor toExtendedRgb() const noexcept;</a>
+<a name="193"><span class="lineNum">     193 </span>            : </a>
+<a name="194"><span class="lineNum">     194 </span>            :     [[nodiscard]] QColor convertTo(Spec colorSpec) const noexcept;</a>
+<a name="195"><span class="lineNum">     195 </span>            : </a>
+<a name="196"><span class="lineNum">     196 </span>            :     static QColor fromRgb(QRgb rgb) noexcept;</a>
+<a name="197"><span class="lineNum">     197 </span>            :     static QColor fromRgba(QRgb rgba) noexcept;</a>
+<a name="198"><span class="lineNum">     198 </span>            : </a>
+<a name="199"><span class="lineNum">     199 </span>            :     static QColor fromRgb(int r, int g, int b, int a = 255);</a>
+<a name="200"><span class="lineNum">     200 </span>            :     static QColor fromRgbF(float r, float g, float b, float a = 1.0);</a>
+<a name="201"><span class="lineNum">     201 </span>            : </a>
+<a name="202"><span class="lineNum">     202 </span>            :     static QColor fromRgba64(ushort r, ushort g, ushort b, ushort a = USHRT_MAX) noexcept;</a>
+<a name="203"><span class="lineNum">     203 </span>            :     static QColor fromRgba64(QRgba64 rgba) noexcept;</a>
+<a name="204"><span class="lineNum">     204 </span>            : </a>
+<a name="205"><span class="lineNum">     205 </span>            :     static QColor fromHsv(int h, int s, int v, int a = 255);</a>
+<a name="206"><span class="lineNum">     206 </span>            :     static QColor fromHsvF(float h, float s, float v, float a = 1.0);</a>
+<a name="207"><span class="lineNum">     207 </span>            : </a>
+<a name="208"><span class="lineNum">     208 </span>            :     static QColor fromCmyk(int c, int m, int y, int k, int a = 255);</a>
+<a name="209"><span class="lineNum">     209 </span>            :     static QColor fromCmykF(float c, float m, float y, float k, float a = 1.0);</a>
+<a name="210"><span class="lineNum">     210 </span>            : </a>
+<a name="211"><span class="lineNum">     211 </span>            :     static QColor fromHsl(int h, int s, int l, int a = 255);</a>
+<a name="212"><span class="lineNum">     212 </span>            :     static QColor fromHslF(float h, float s, float l, float a = 1.0);</a>
+<a name="213"><span class="lineNum">     213 </span>            : </a>
+<a name="214"><span class="lineNum">     214 </span>            :     [[nodiscard]] QColor lighter(int f = 150) const noexcept;</a>
+<a name="215"><span class="lineNum">     215 </span>            :     [[nodiscard]] QColor darker(int f = 200) const noexcept;</a>
+<a name="216"><span class="lineNum">     216 </span>            : </a>
+<a name="217"><span class="lineNum">     217 </span>            :     bool operator==(const QColor &amp;c) const noexcept;</a>
+<a name="218"><span class="lineNum">     218 </span>            :     bool operator!=(const QColor &amp;c) const noexcept;</a>
+<a name="219"><span class="lineNum">     219 </span>            : </a>
+<a name="220"><span class="lineNum">     220 </span>            :     operator QVariant() const;</a>
+<a name="221"><span class="lineNum">     221 </span>            : </a>
+<a name="222"><span class="lineNum">     222 </span>            :     static bool isValidColor(const QString &amp;name);</a>
+<a name="223"><span class="lineNum">     223 </span>            :     static bool isValidColor(QStringView) noexcept;</a>
+<a name="224"><span class="lineNum">     224 </span>            :     static bool isValidColor(QLatin1String) noexcept;</a>
+<a name="225"><span class="lineNum">     225 </span>            : </a>
+<a name="226"><span class="lineNum">     226 </span>            : private:</a>
+<a name="227"><span class="lineNum">     227 </span>            : </a>
+<a name="228"><span class="lineNum">     228 </span>            :     void invalidate() noexcept;</a>
+<a name="229"><span class="lineNum">     229 </span>            :     template &lt;typename String&gt;</a>
+<a name="230"><span class="lineNum">     230 </span>            :     bool setColorFromString(String name);</a>
+<a name="231"><span class="lineNum">     231 </span>            : </a>
+<a name="232"><span class="lineNum">     232 </span><span class="lineCov">         13 :     static constexpr bool isRgbaValid(int r, int g, int b, int a = 255) noexcept Q_DECL_CONST_FUNCTION</span></a>
+<a name="233"><span class="lineNum">     233 </span>            :     {</a>
+<a name="234"><span class="lineNum">     234 </span><span class="lineCov">         13 :         return uint(r) &lt;= 255 &amp;&amp; uint(g) &lt;= 255 &amp;&amp; uint(b) &lt;= 255 &amp;&amp; uint(a) &lt;= 255;</span></a>
+<a name="235"><span class="lineNum">     235 </span>            :     }</a>
+<a name="236"><span class="lineNum">     236 </span>            : </a>
+<a name="237"><span class="lineNum">     237 </span>            :     Spec cspec;</a>
+<a name="238"><span class="lineNum">     238 </span>            :     union CT {</a>
+<a name="239"><span class="lineNum">     239 </span>            : #ifdef Q_COMPILER_UNIFORM_INIT</a>
+<a name="240"><span class="lineNum">     240 </span>            :         CT() {} // doesn't init anything, thus can't be constexpr</a>
+<a name="241"><span class="lineNum">     241 </span><span class="lineCov">         13 :         constexpr explicit CT(ushort a1, ushort a2, ushort a3, ushort a4, ushort a5) noexcept</span></a>
+<a name="242"><span class="lineNum">     242 </span><span class="lineCov">         13 :             : array{a1, a2, a3, a4, a5} {}</span></a>
+<a name="243"><span class="lineNum">     243 </span>            : #endif</a>
+<a name="244"><span class="lineNum">     244 </span>            :         struct {</a>
+<a name="245"><span class="lineNum">     245 </span>            :             ushort alpha;</a>
+<a name="246"><span class="lineNum">     246 </span>            :             ushort red;</a>
+<a name="247"><span class="lineNum">     247 </span>            :             ushort green;</a>
+<a name="248"><span class="lineNum">     248 </span>            :             ushort blue;</a>
+<a name="249"><span class="lineNum">     249 </span>            :             ushort pad;</a>
+<a name="250"><span class="lineNum">     250 </span>            :         } argb;</a>
+<a name="251"><span class="lineNum">     251 </span>            :         struct {</a>
+<a name="252"><span class="lineNum">     252 </span>            :             ushort alpha;</a>
+<a name="253"><span class="lineNum">     253 </span>            :             ushort hue;</a>
+<a name="254"><span class="lineNum">     254 </span>            :             ushort saturation;</a>
+<a name="255"><span class="lineNum">     255 </span>            :             ushort value;</a>
+<a name="256"><span class="lineNum">     256 </span>            :             ushort pad;</a>
+<a name="257"><span class="lineNum">     257 </span>            :         } ahsv;</a>
+<a name="258"><span class="lineNum">     258 </span>            :         struct {</a>
+<a name="259"><span class="lineNum">     259 </span>            :             ushort alpha;</a>
+<a name="260"><span class="lineNum">     260 </span>            :             ushort cyan;</a>
+<a name="261"><span class="lineNum">     261 </span>            :             ushort magenta;</a>
+<a name="262"><span class="lineNum">     262 </span>            :             ushort yellow;</a>
+<a name="263"><span class="lineNum">     263 </span>            :             ushort black;</a>
+<a name="264"><span class="lineNum">     264 </span>            :         } acmyk;</a>
+<a name="265"><span class="lineNum">     265 </span>            :         struct {</a>
+<a name="266"><span class="lineNum">     266 </span>            :             ushort alpha;</a>
+<a name="267"><span class="lineNum">     267 </span>            :             ushort hue;</a>
+<a name="268"><span class="lineNum">     268 </span>            :             ushort saturation;</a>
+<a name="269"><span class="lineNum">     269 </span>            :             ushort lightness;</a>
+<a name="270"><span class="lineNum">     270 </span>            :             ushort pad;</a>
+<a name="271"><span class="lineNum">     271 </span>            :         } ahsl;</a>
+<a name="272"><span class="lineNum">     272 </span>            :         struct {</a>
+<a name="273"><span class="lineNum">     273 </span>            :             ushort alphaF16;</a>
+<a name="274"><span class="lineNum">     274 </span>            :             ushort redF16;</a>
+<a name="275"><span class="lineNum">     275 </span>            :             ushort greenF16;</a>
+<a name="276"><span class="lineNum">     276 </span>            :             ushort blueF16;</a>
+<a name="277"><span class="lineNum">     277 </span>            :             ushort pad;</a>
+<a name="278"><span class="lineNum">     278 </span>            :         } argbExtended;</a>
+<a name="279"><span class="lineNum">     279 </span>            :         ushort array[5];</a>
+<a name="280"><span class="lineNum">     280 </span>            :     } ct;</a>
+<a name="281"><span class="lineNum">     281 </span>            : </a>
+<a name="282"><span class="lineNum">     282 </span>            :     friend class QColormap;</a>
+<a name="283"><span class="lineNum">     283 </span>            : #ifndef QT_NO_DATASTREAM</a>
+<a name="284"><span class="lineNum">     284 </span>            :     friend Q_GUI_EXPORT QDataStream &amp;operator&lt;&lt;(QDataStream &amp;, const QColor &amp;);</a>
+<a name="285"><span class="lineNum">     285 </span>            :     friend Q_GUI_EXPORT QDataStream &amp;operator&gt;&gt;(QDataStream &amp;, QColor &amp;);</a>
+<a name="286"><span class="lineNum">     286 </span>            : #endif</a>
+<a name="287"><span class="lineNum">     287 </span>            : </a>
+<a name="288"><span class="lineNum">     288 </span>            : #ifdef Q_COMPILER_UNIFORM_INIT</a>
+<a name="289"><span class="lineNum">     289 </span>            : public: // can't give friendship to a namespace, so it needs to be public</a>
+<a name="290"><span class="lineNum">     290 </span>            :     constexpr explicit QColor(Spec spec, ushort a1, ushort a2, ushort a3, ushort a4, ushort a5=0) noexcept</a>
+<a name="291"><span class="lineNum">     291 </span>            :         : cspec(spec), ct(a1, a2, a3, a4, a5) {}</a>
+<a name="292"><span class="lineNum">     292 </span>            : #endif // Q_COMPILER_UNIFORM_INIT</a>
+<a name="293"><span class="lineNum">     293 </span>            : };</a>
+<a name="294"><span class="lineNum">     294 </span>            : Q_DECLARE_TYPEINFO(QColor, Q_RELOCATABLE_TYPE);</a>
+<a name="295"><span class="lineNum">     295 </span>            : </a>
+<a name="296"><span class="lineNum">     296 </span>            : inline QColor::QColor(QLatin1String aname)</a>
+<a name="297"><span class="lineNum">     297 </span>            : { setNamedColor(aname); }</a>
+<a name="298"><span class="lineNum">     298 </span>            : </a>
+<a name="299"><span class="lineNum">     299 </span>            : inline QColor::QColor(QStringView aname)</a>
+<a name="300"><span class="lineNum">     300 </span>            : { setNamedColor(aname); }</a>
+<a name="301"><span class="lineNum">     301 </span>            : </a>
+<a name="302"><span class="lineNum">     302 </span>            : inline QColor::QColor(const QString&amp; aname)</a>
+<a name="303"><span class="lineNum">     303 </span>            : { setNamedColor(aname); }</a>
+<a name="304"><span class="lineNum">     304 </span>            : </a>
+<a name="305"><span class="lineNum">     305 </span>            : inline bool QColor::isValid() const noexcept</a>
+<a name="306"><span class="lineNum">     306 </span>            : { return cspec != Invalid; }</a>
+<a name="307"><span class="lineNum">     307 </span>            : </a>
+<a name="308"><span class="lineNum">     308 </span>            : namespace QColorConstants</a>
+<a name="309"><span class="lineNum">     309 </span>            : {</a>
+<a name="310"><span class="lineNum">     310 </span>            :     // Qt::GlobalColor names</a>
+<a name="311"><span class="lineNum">     311 </span>            :     constexpr inline QColor Color0      {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0x00 * 0x101, 0x00 * 0x101};</a>
+<a name="312"><span class="lineNum">     312 </span>            :     constexpr inline QColor Color1      {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xff * 0x101, 0xff * 0x101};</a>
+<a name="313"><span class="lineNum">     313 </span>            :     constexpr inline QColor Black       {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0x00 * 0x101, 0x00 * 0x101};</a>
+<a name="314"><span class="lineNum">     314 </span>            :     constexpr inline QColor White       {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xff * 0x101, 0xff * 0x101};</a>
+<a name="315"><span class="lineNum">     315 </span>            :     constexpr inline QColor DarkGray    {QColor::Rgb, 0xff * 0x101, 0x80 * 0x101, 0x80 * 0x101, 0x80 * 0x101};</a>
+<a name="316"><span class="lineNum">     316 </span>            :     constexpr inline QColor Gray        {QColor::Rgb, 0xff * 0x101, 0xa0 * 0x101, 0xa0 * 0x101, 0xa4 * 0x101};</a>
+<a name="317"><span class="lineNum">     317 </span>            :     constexpr inline QColor LightGray   {QColor::Rgb, 0xff * 0x101, 0xc0 * 0x101, 0xc0 * 0x101, 0xc0 * 0x101};</a>
+<a name="318"><span class="lineNum">     318 </span>            :     constexpr inline QColor Red         {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0x00 * 0x101, 0x00 * 0x101};</a>
+<a name="319"><span class="lineNum">     319 </span>            :     constexpr inline QColor Green       {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0xff * 0x101, 0x00 * 0x101};</a>
+<a name="320"><span class="lineNum">     320 </span>            :     constexpr inline QColor Blue        {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0x00 * 0x101, 0xff * 0x101};</a>
+<a name="321"><span class="lineNum">     321 </span>            :     constexpr inline QColor Cyan        {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0xff * 0x101, 0xff * 0x101};</a>
+<a name="322"><span class="lineNum">     322 </span>            :     constexpr inline QColor Magenta     {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0x00 * 0x101, 0xff * 0x101};</a>
+<a name="323"><span class="lineNum">     323 </span>            :     constexpr inline QColor Yellow      {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xff * 0x101, 0x00 * 0x101};</a>
+<a name="324"><span class="lineNum">     324 </span>            :     constexpr inline QColor DarkRed     {QColor::Rgb, 0xff * 0x101, 0x80 * 0x101, 0x00 * 0x101, 0x00 * 0x101};</a>
+<a name="325"><span class="lineNum">     325 </span>            :     constexpr inline QColor DarkGreen   {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0x80 * 0x101, 0x00 * 0x101};</a>
+<a name="326"><span class="lineNum">     326 </span>            :     constexpr inline QColor DarkBlue    {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0x00 * 0x101, 0x80 * 0x101};</a>
+<a name="327"><span class="lineNum">     327 </span>            :     constexpr inline QColor DarkCyan    {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0x80 * 0x101, 0x80 * 0x101};</a>
+<a name="328"><span class="lineNum">     328 </span>            :     constexpr inline QColor DarkMagenta {QColor::Rgb, 0xff * 0x101, 0x80 * 0x101, 0x00 * 0x101, 0x80 * 0x101};</a>
+<a name="329"><span class="lineNum">     329 </span>            :     constexpr inline QColor DarkYellow  {QColor::Rgb, 0xff * 0x101, 0x80 * 0x101, 0x80 * 0x101, 0x00 * 0x101};</a>
+<a name="330"><span class="lineNum">     330 </span>            :     constexpr inline QColor Transparent {QColor::Rgb, 0x00 * 0x101, 0x00 * 0x101, 0x00 * 0x101, 0x00 * 0x101};</a>
+<a name="331"><span class="lineNum">     331 </span>            : </a>
+<a name="332"><span class="lineNum">     332 </span>            :     // SVG names supported by QColor (see qcolor.cpp).</a>
+<a name="333"><span class="lineNum">     333 </span>            : namespace Svg {</a>
+<a name="334"><span class="lineNum">     334 </span>            :     constexpr inline QColor aliceblue                {QColor::Rgb, 0xff * 0x101, 0xf0 * 0x101, 0xf8 * 0x101, 0xff * 0x101};</a>
+<a name="335"><span class="lineNum">     335 </span>            :     constexpr inline QColor antiquewhite             {QColor::Rgb, 0xff * 0x101, 0xfa * 0x101, 0xeb * 0x101, 0xd7 * 0x101};</a>
+<a name="336"><span class="lineNum">     336 </span>            :     constexpr inline QColor aqua                     {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0xff * 0x101, 0xff * 0x101};</a>
+<a name="337"><span class="lineNum">     337 </span>            :     constexpr inline QColor aquamarine               {QColor::Rgb, 0xff * 0x101, 0x7f * 0x101, 0xff * 0x101, 0xd4 * 0x101};</a>
+<a name="338"><span class="lineNum">     338 </span>            :     constexpr inline QColor azure                    {QColor::Rgb, 0xff * 0x101, 0xf0 * 0x101, 0xff * 0x101, 0xff * 0x101};</a>
+<a name="339"><span class="lineNum">     339 </span>            :     constexpr inline QColor beige                    {QColor::Rgb, 0xff * 0x101, 0xf5 * 0x101, 0xf5 * 0x101, 0xdc * 0x101};</a>
+<a name="340"><span class="lineNum">     340 </span>            :     constexpr inline QColor bisque                   {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xe4 * 0x101, 0xc4 * 0x101};</a>
+<a name="341"><span class="lineNum">     341 </span>            :     constexpr inline QColor black                    {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0x00 * 0x101, 0x00 * 0x101};</a>
+<a name="342"><span class="lineNum">     342 </span>            :     constexpr inline QColor blanchedalmond           {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xeb * 0x101, 0xcd * 0x101};</a>
+<a name="343"><span class="lineNum">     343 </span>            :     constexpr inline QColor blue                     {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0x00 * 0x101, 0xff * 0x101};</a>
+<a name="344"><span class="lineNum">     344 </span>            :     constexpr inline QColor blueviolet               {QColor::Rgb, 0xff * 0x101, 0x8a * 0x101, 0x2b * 0x101, 0xe2 * 0x101};</a>
+<a name="345"><span class="lineNum">     345 </span>            :     constexpr inline QColor brown                    {QColor::Rgb, 0xff * 0x101, 0xa5 * 0x101, 0x2a * 0x101, 0x2a * 0x101};</a>
+<a name="346"><span class="lineNum">     346 </span>            :     constexpr inline QColor burlywood                {QColor::Rgb, 0xff * 0x101, 0xde * 0x101, 0xb8 * 0x101, 0x87 * 0x101};</a>
+<a name="347"><span class="lineNum">     347 </span>            :     constexpr inline QColor cadetblue                {QColor::Rgb, 0xff * 0x101, 0x5f * 0x101, 0x9e * 0x101, 0xa0 * 0x101};</a>
+<a name="348"><span class="lineNum">     348 </span>            :     constexpr inline QColor chartreuse               {QColor::Rgb, 0xff * 0x101, 0x7f * 0x101, 0xff * 0x101, 0x00 * 0x101};</a>
+<a name="349"><span class="lineNum">     349 </span>            :     constexpr inline QColor chocolate                {QColor::Rgb, 0xff * 0x101, 0xd2 * 0x101, 0x69 * 0x101, 0x1e * 0x101};</a>
+<a name="350"><span class="lineNum">     350 </span>            :     constexpr inline QColor coral                    {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0x7f * 0x101, 0x50 * 0x101};</a>
+<a name="351"><span class="lineNum">     351 </span>            :     constexpr inline QColor cornflowerblue           {QColor::Rgb, 0xff * 0x101, 0x64 * 0x101, 0x95 * 0x101, 0xed * 0x101};</a>
+<a name="352"><span class="lineNum">     352 </span>            :     constexpr inline QColor cornsilk                 {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xf8 * 0x101, 0xdc * 0x101};</a>
+<a name="353"><span class="lineNum">     353 </span>            :     constexpr inline QColor crimson                  {QColor::Rgb, 0xff * 0x101, 0xdc * 0x101, 0x14 * 0x101, 0x3c * 0x101};</a>
+<a name="354"><span class="lineNum">     354 </span>            :     constexpr inline QColor cyan                     {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0xff * 0x101, 0xff * 0x101};</a>
+<a name="355"><span class="lineNum">     355 </span>            :     constexpr inline QColor darkblue                 {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0x00 * 0x101, 0x8b * 0x101};</a>
+<a name="356"><span class="lineNum">     356 </span>            :     constexpr inline QColor darkcyan                 {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0x8b * 0x101, 0x8b * 0x101};</a>
+<a name="357"><span class="lineNum">     357 </span>            :     constexpr inline QColor darkgoldenrod            {QColor::Rgb, 0xff * 0x101, 0xb8 * 0x101, 0x86 * 0x101, 0x0b * 0x101};</a>
+<a name="358"><span class="lineNum">     358 </span>            :     constexpr inline QColor darkgray                 {QColor::Rgb, 0xff * 0x101, 0xa9 * 0x101, 0xa9 * 0x101, 0xa9 * 0x101};</a>
+<a name="359"><span class="lineNum">     359 </span>            :     constexpr inline QColor darkgreen                {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0x64 * 0x101, 0x00 * 0x101};</a>
+<a name="360"><span class="lineNum">     360 </span>            :     constexpr inline QColor darkgrey                 {QColor::Rgb, 0xff * 0x101, 0xa9 * 0x101, 0xa9 * 0x101, 0xa9 * 0x101};</a>
+<a name="361"><span class="lineNum">     361 </span>            :     constexpr inline QColor darkkhaki                {QColor::Rgb, 0xff * 0x101, 0xbd * 0x101, 0xb7 * 0x101, 0x6b * 0x101};</a>
+<a name="362"><span class="lineNum">     362 </span>            :     constexpr inline QColor darkmagenta              {QColor::Rgb, 0xff * 0x101, 0x8b * 0x101, 0x00 * 0x101, 0x8b * 0x101};</a>
+<a name="363"><span class="lineNum">     363 </span>            :     constexpr inline QColor darkolivegreen           {QColor::Rgb, 0xff * 0x101, 0x55 * 0x101, 0x6b * 0x101, 0x2f * 0x101};</a>
+<a name="364"><span class="lineNum">     364 </span>            :     constexpr inline QColor darkorange               {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0x8c * 0x101, 0x00 * 0x101};</a>
+<a name="365"><span class="lineNum">     365 </span>            :     constexpr inline QColor darkorchid               {QColor::Rgb, 0xff * 0x101, 0x99 * 0x101, 0x32 * 0x101, 0xcc * 0x101};</a>
+<a name="366"><span class="lineNum">     366 </span>            :     constexpr inline QColor darkred                  {QColor::Rgb, 0xff * 0x101, 0x8b * 0x101, 0x00 * 0x101, 0x00 * 0x101};</a>
+<a name="367"><span class="lineNum">     367 </span>            :     constexpr inline QColor darksalmon               {QColor::Rgb, 0xff * 0x101, 0xe9 * 0x101, 0x96 * 0x101, 0x7a * 0x101};</a>
+<a name="368"><span class="lineNum">     368 </span>            :     constexpr inline QColor darkseagreen             {QColor::Rgb, 0xff * 0x101, 0x8f * 0x101, 0xbc * 0x101, 0x8f * 0x101};</a>
+<a name="369"><span class="lineNum">     369 </span>            :     constexpr inline QColor darkslateblue            {QColor::Rgb, 0xff * 0x101, 0x48 * 0x101, 0x3d * 0x101, 0x8b * 0x101};</a>
+<a name="370"><span class="lineNum">     370 </span>            :     constexpr inline QColor darkslategray            {QColor::Rgb, 0xff * 0x101, 0x2f * 0x101, 0x4f * 0x101, 0x4f * 0x101};</a>
+<a name="371"><span class="lineNum">     371 </span>            :     constexpr inline QColor darkslategrey            {QColor::Rgb, 0xff * 0x101, 0x2f * 0x101, 0x4f * 0x101, 0x4f * 0x101};</a>
+<a name="372"><span class="lineNum">     372 </span>            :     constexpr inline QColor darkturquoise            {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0xce * 0x101, 0xd1 * 0x101};</a>
+<a name="373"><span class="lineNum">     373 </span>            :     constexpr inline QColor darkviolet               {QColor::Rgb, 0xff * 0x101, 0x94 * 0x101, 0x00 * 0x101, 0xd3 * 0x101};</a>
+<a name="374"><span class="lineNum">     374 </span>            :     constexpr inline QColor deeppink                 {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0x14 * 0x101, 0x93 * 0x101};</a>
+<a name="375"><span class="lineNum">     375 </span>            :     constexpr inline QColor deepskyblue              {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0xbf * 0x101, 0xff * 0x101};</a>
+<a name="376"><span class="lineNum">     376 </span>            :     constexpr inline QColor dimgray                  {QColor::Rgb, 0xff * 0x101, 0x69 * 0x101, 0x69 * 0x101, 0x69 * 0x101};</a>
+<a name="377"><span class="lineNum">     377 </span>            :     constexpr inline QColor dimgrey                  {QColor::Rgb, 0xff * 0x101, 0x69 * 0x101, 0x69 * 0x101, 0x69 * 0x101};</a>
+<a name="378"><span class="lineNum">     378 </span>            :     constexpr inline QColor dodgerblue               {QColor::Rgb, 0xff * 0x101, 0x1e * 0x101, 0x90 * 0x101, 0xff * 0x101};</a>
+<a name="379"><span class="lineNum">     379 </span>            :     constexpr inline QColor firebrick                {QColor::Rgb, 0xff * 0x101, 0xb2 * 0x101, 0x22 * 0x101, 0x22 * 0x101};</a>
+<a name="380"><span class="lineNum">     380 </span>            :     constexpr inline QColor floralwhite              {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xfa * 0x101, 0xf0 * 0x101};</a>
+<a name="381"><span class="lineNum">     381 </span>            :     constexpr inline QColor forestgreen              {QColor::Rgb, 0xff * 0x101, 0x22 * 0x101, 0x8b * 0x101, 0x22 * 0x101};</a>
+<a name="382"><span class="lineNum">     382 </span>            :     constexpr inline QColor fuchsia                  {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0x00 * 0x101, 0xff * 0x101};</a>
+<a name="383"><span class="lineNum">     383 </span>            :     constexpr inline QColor gainsboro                {QColor::Rgb, 0xff * 0x101, 0xdc * 0x101, 0xdc * 0x101, 0xdc * 0x101};</a>
+<a name="384"><span class="lineNum">     384 </span>            :     constexpr inline QColor ghostwhite               {QColor::Rgb, 0xff * 0x101, 0xf8 * 0x101, 0xf8 * 0x101, 0xff * 0x101};</a>
+<a name="385"><span class="lineNum">     385 </span>            :     constexpr inline QColor gold                     {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xd7 * 0x101, 0x00 * 0x101};</a>
+<a name="386"><span class="lineNum">     386 </span>            :     constexpr inline QColor goldenrod                {QColor::Rgb, 0xff * 0x101, 0xda * 0x101, 0xa5 * 0x101, 0x20 * 0x101};</a>
+<a name="387"><span class="lineNum">     387 </span>            :     constexpr inline QColor gray                     {QColor::Rgb, 0xff * 0x101, 0x80 * 0x101, 0x80 * 0x101, 0x80 * 0x101};</a>
+<a name="388"><span class="lineNum">     388 </span>            :     constexpr inline QColor green                    {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0x80 * 0x101, 0x00 * 0x101};</a>
+<a name="389"><span class="lineNum">     389 </span>            :     constexpr inline QColor greenyellow              {QColor::Rgb, 0xff * 0x101, 0xad * 0x101, 0xff * 0x101, 0x2f * 0x101};</a>
+<a name="390"><span class="lineNum">     390 </span>            :     constexpr inline QColor grey                     {QColor::Rgb, 0xff * 0x101, 0x80 * 0x101, 0x80 * 0x101, 0x80 * 0x101};</a>
+<a name="391"><span class="lineNum">     391 </span>            :     constexpr inline QColor honeydew                 {QColor::Rgb, 0xff * 0x101, 0xf0 * 0x101, 0xff * 0x101, 0xf0 * 0x101};</a>
+<a name="392"><span class="lineNum">     392 </span>            :     constexpr inline QColor hotpink                  {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0x69 * 0x101, 0xb4 * 0x101};</a>
+<a name="393"><span class="lineNum">     393 </span>            :     constexpr inline QColor indianred                {QColor::Rgb, 0xff * 0x101, 0xcd * 0x101, 0x5c * 0x101, 0x5c * 0x101};</a>
+<a name="394"><span class="lineNum">     394 </span>            :     constexpr inline QColor indigo                   {QColor::Rgb, 0xff * 0x101, 0x4b * 0x101, 0x00 * 0x101, 0x82 * 0x101};</a>
+<a name="395"><span class="lineNum">     395 </span>            :     constexpr inline QColor ivory                    {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xff * 0x101, 0xf0 * 0x101};</a>
+<a name="396"><span class="lineNum">     396 </span>            :     constexpr inline QColor khaki                    {QColor::Rgb, 0xff * 0x101, 0xf0 * 0x101, 0xe6 * 0x101, 0x8c * 0x101};</a>
+<a name="397"><span class="lineNum">     397 </span>            :     constexpr inline QColor lavender                 {QColor::Rgb, 0xff * 0x101, 0xe6 * 0x101, 0xe6 * 0x101, 0xfa * 0x101};</a>
+<a name="398"><span class="lineNum">     398 </span>            :     constexpr inline QColor lavenderblush            {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xf0 * 0x101, 0xf5 * 0x101};</a>
+<a name="399"><span class="lineNum">     399 </span>            :     constexpr inline QColor lawngreen                {QColor::Rgb, 0xff * 0x101, 0x7c * 0x101, 0xfc * 0x101, 0x00 * 0x101};</a>
+<a name="400"><span class="lineNum">     400 </span>            :     constexpr inline QColor lemonchiffon             {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xfa * 0x101, 0xcd * 0x101};</a>
+<a name="401"><span class="lineNum">     401 </span>            :     constexpr inline QColor lightblue                {QColor::Rgb, 0xff * 0x101, 0xad * 0x101, 0xd8 * 0x101, 0xe6 * 0x101};</a>
+<a name="402"><span class="lineNum">     402 </span>            :     constexpr inline QColor lightcoral               {QColor::Rgb, 0xff * 0x101, 0xf0 * 0x101, 0x80 * 0x101, 0x80 * 0x101};</a>
+<a name="403"><span class="lineNum">     403 </span>            :     constexpr inline QColor lightcyan                {QColor::Rgb, 0xff * 0x101, 0xe0 * 0x101, 0xff * 0x101, 0xff * 0x101};</a>
+<a name="404"><span class="lineNum">     404 </span>            :     constexpr inline QColor lightgoldenrodyellow     {QColor::Rgb, 0xff * 0x101, 0xfa * 0x101, 0xfa * 0x101, 0xd2 * 0x101};</a>
+<a name="405"><span class="lineNum">     405 </span>            :     constexpr inline QColor lightgray                {QColor::Rgb, 0xff * 0x101, 0xd3 * 0x101, 0xd3 * 0x101, 0xd3 * 0x101};</a>
+<a name="406"><span class="lineNum">     406 </span>            :     constexpr inline QColor lightgreen               {QColor::Rgb, 0xff * 0x101, 0x90 * 0x101, 0xee * 0x101, 0x90 * 0x101};</a>
+<a name="407"><span class="lineNum">     407 </span>            :     constexpr inline QColor lightgrey                {QColor::Rgb, 0xff * 0x101, 0xd3 * 0x101, 0xd3 * 0x101, 0xd3 * 0x101};</a>
+<a name="408"><span class="lineNum">     408 </span>            :     constexpr inline QColor lightpink                {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xb6 * 0x101, 0xc1 * 0x101};</a>
+<a name="409"><span class="lineNum">     409 </span>            :     constexpr inline QColor lightsalmon              {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xa0 * 0x101, 0x7a * 0x101};</a>
+<a name="410"><span class="lineNum">     410 </span>            :     constexpr inline QColor lightseagreen            {QColor::Rgb, 0xff * 0x101, 0x20 * 0x101, 0xb2 * 0x101, 0xaa * 0x101};</a>
+<a name="411"><span class="lineNum">     411 </span>            :     constexpr inline QColor lightskyblue             {QColor::Rgb, 0xff * 0x101, 0x87 * 0x101, 0xce * 0x101, 0xfa * 0x101};</a>
+<a name="412"><span class="lineNum">     412 </span>            :     constexpr inline QColor lightslategray           {QColor::Rgb, 0xff * 0x101, 0x77 * 0x101, 0x88 * 0x101, 0x99 * 0x101};</a>
+<a name="413"><span class="lineNum">     413 </span>            :     constexpr inline QColor lightslategrey           {QColor::Rgb, 0xff * 0x101, 0x77 * 0x101, 0x88 * 0x101, 0x99 * 0x101};</a>
+<a name="414"><span class="lineNum">     414 </span>            :     constexpr inline QColor lightsteelblue           {QColor::Rgb, 0xff * 0x101, 0xb0 * 0x101, 0xc4 * 0x101, 0xde * 0x101};</a>
+<a name="415"><span class="lineNum">     415 </span>            :     constexpr inline QColor lightyellow              {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xff * 0x101, 0xe0 * 0x101};</a>
+<a name="416"><span class="lineNum">     416 </span>            :     constexpr inline QColor lime                     {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0xff * 0x101, 0x00 * 0x101};</a>
+<a name="417"><span class="lineNum">     417 </span>            :     constexpr inline QColor limegreen                {QColor::Rgb, 0xff * 0x101, 0x32 * 0x101, 0xcd * 0x101, 0x32 * 0x101};</a>
+<a name="418"><span class="lineNum">     418 </span>            :     constexpr inline QColor linen                    {QColor::Rgb, 0xff * 0x101, 0xfa * 0x101, 0xf0 * 0x101, 0xe6 * 0x101};</a>
+<a name="419"><span class="lineNum">     419 </span>            :     constexpr inline QColor magenta                  {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0x00 * 0x101, 0xff * 0x101};</a>
+<a name="420"><span class="lineNum">     420 </span>            :     constexpr inline QColor maroon                   {QColor::Rgb, 0xff * 0x101, 0x80 * 0x101, 0x00 * 0x101, 0x00 * 0x101};</a>
+<a name="421"><span class="lineNum">     421 </span>            :     constexpr inline QColor mediumaquamarine         {QColor::Rgb, 0xff * 0x101, 0x66 * 0x101, 0xcd * 0x101, 0xaa * 0x101};</a>
+<a name="422"><span class="lineNum">     422 </span>            :     constexpr inline QColor mediumblue               {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0x00 * 0x101, 0xcd * 0x101};</a>
+<a name="423"><span class="lineNum">     423 </span>            :     constexpr inline QColor mediumorchid             {QColor::Rgb, 0xff * 0x101, 0xba * 0x101, 0x55 * 0x101, 0xd3 * 0x101};</a>
+<a name="424"><span class="lineNum">     424 </span>            :     constexpr inline QColor mediumpurple             {QColor::Rgb, 0xff * 0x101, 0x93 * 0x101, 0x70 * 0x101, 0xdb * 0x101};</a>
+<a name="425"><span class="lineNum">     425 </span>            :     constexpr inline QColor mediumseagreen           {QColor::Rgb, 0xff * 0x101, 0x3c * 0x101, 0xb3 * 0x101, 0x71 * 0x101};</a>
+<a name="426"><span class="lineNum">     426 </span>            :     constexpr inline QColor mediumslateblue          {QColor::Rgb, 0xff * 0x101, 0x7b * 0x101, 0x68 * 0x101, 0xee * 0x101};</a>
+<a name="427"><span class="lineNum">     427 </span>            :     constexpr inline QColor mediumspringgreen        {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0xfa * 0x101, 0x9a * 0x101};</a>
+<a name="428"><span class="lineNum">     428 </span>            :     constexpr inline QColor mediumturquoise          {QColor::Rgb, 0xff * 0x101, 0x48 * 0x101, 0xd1 * 0x101, 0xcc * 0x101};</a>
+<a name="429"><span class="lineNum">     429 </span>            :     constexpr inline QColor mediumvioletred          {QColor::Rgb, 0xff * 0x101, 0xc7 * 0x101, 0x15 * 0x101, 0x85 * 0x101};</a>
+<a name="430"><span class="lineNum">     430 </span>            :     constexpr inline QColor midnightblue             {QColor::Rgb, 0xff * 0x101, 0x19 * 0x101, 0x19 * 0x101, 0x70 * 0x101};</a>
+<a name="431"><span class="lineNum">     431 </span>            :     constexpr inline QColor mintcream                {QColor::Rgb, 0xff * 0x101, 0xf5 * 0x101, 0xff * 0x101, 0xfa * 0x101};</a>
+<a name="432"><span class="lineNum">     432 </span>            :     constexpr inline QColor mistyrose                {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xe4 * 0x101, 0xe1 * 0x101};</a>
+<a name="433"><span class="lineNum">     433 </span>            :     constexpr inline QColor moccasin                 {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xe4 * 0x101, 0xb5 * 0x101};</a>
+<a name="434"><span class="lineNum">     434 </span>            :     constexpr inline QColor navajowhite              {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xde * 0x101, 0xad * 0x101};</a>
+<a name="435"><span class="lineNum">     435 </span>            :     constexpr inline QColor navy                     {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0x00 * 0x101, 0x80 * 0x101};</a>
+<a name="436"><span class="lineNum">     436 </span>            :     constexpr inline QColor oldlace                  {QColor::Rgb, 0xff * 0x101, 0xfd * 0x101, 0xf5 * 0x101, 0xe6 * 0x101};</a>
+<a name="437"><span class="lineNum">     437 </span>            :     constexpr inline QColor olive                    {QColor::Rgb, 0xff * 0x101, 0x80 * 0x101, 0x80 * 0x101, 0x00 * 0x101};</a>
+<a name="438"><span class="lineNum">     438 </span>            :     constexpr inline QColor olivedrab                {QColor::Rgb, 0xff * 0x101, 0x6b * 0x101, 0x8e * 0x101, 0x23 * 0x101};</a>
+<a name="439"><span class="lineNum">     439 </span>            :     constexpr inline QColor orange                   {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xa5 * 0x101, 0x00 * 0x101};</a>
+<a name="440"><span class="lineNum">     440 </span>            :     constexpr inline QColor orangered                {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0x45 * 0x101, 0x00 * 0x101};</a>
+<a name="441"><span class="lineNum">     441 </span>            :     constexpr inline QColor orchid                   {QColor::Rgb, 0xff * 0x101, 0xda * 0x101, 0x70 * 0x101, 0xd6 * 0x101};</a>
+<a name="442"><span class="lineNum">     442 </span>            :     constexpr inline QColor palegoldenrod            {QColor::Rgb, 0xff * 0x101, 0xee * 0x101, 0xe8 * 0x101, 0xaa * 0x101};</a>
+<a name="443"><span class="lineNum">     443 </span>            :     constexpr inline QColor palegreen                {QColor::Rgb, 0xff * 0x101, 0x98 * 0x101, 0xfb * 0x101, 0x98 * 0x101};</a>
+<a name="444"><span class="lineNum">     444 </span>            :     constexpr inline QColor paleturquoise            {QColor::Rgb, 0xff * 0x101, 0xaf * 0x101, 0xee * 0x101, 0xee * 0x101};</a>
+<a name="445"><span class="lineNum">     445 </span>            :     constexpr inline QColor palevioletred            {QColor::Rgb, 0xff * 0x101, 0xdb * 0x101, 0x70 * 0x101, 0x93 * 0x101};</a>
+<a name="446"><span class="lineNum">     446 </span>            :     constexpr inline QColor papayawhip               {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xef * 0x101, 0xd5 * 0x101};</a>
+<a name="447"><span class="lineNum">     447 </span>            :     constexpr inline QColor peachpuff                {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xda * 0x101, 0xb9 * 0x101};</a>
+<a name="448"><span class="lineNum">     448 </span>            :     constexpr inline QColor peru                     {QColor::Rgb, 0xff * 0x101, 0xcd * 0x101, 0x85 * 0x101, 0x3f * 0x101};</a>
+<a name="449"><span class="lineNum">     449 </span>            :     constexpr inline QColor pink                     {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xc0 * 0x101, 0xcb * 0x101};</a>
+<a name="450"><span class="lineNum">     450 </span>            :     constexpr inline QColor plum                     {QColor::Rgb, 0xff * 0x101, 0xdd * 0x101, 0xa0 * 0x101, 0xdd * 0x101};</a>
+<a name="451"><span class="lineNum">     451 </span>            :     constexpr inline QColor powderblue               {QColor::Rgb, 0xff * 0x101, 0xb0 * 0x101, 0xe0 * 0x101, 0xe6 * 0x101};</a>
+<a name="452"><span class="lineNum">     452 </span>            :     constexpr inline QColor purple                   {QColor::Rgb, 0xff * 0x101, 0x80 * 0x101, 0x00 * 0x101, 0x80 * 0x101};</a>
+<a name="453"><span class="lineNum">     453 </span>            :     constexpr inline QColor red                      {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0x00 * 0x101, 0x00 * 0x101};</a>
+<a name="454"><span class="lineNum">     454 </span>            :     constexpr inline QColor rosybrown                {QColor::Rgb, 0xff * 0x101, 0xbc * 0x101, 0x8f * 0x101, 0x8f * 0x101};</a>
+<a name="455"><span class="lineNum">     455 </span>            :     constexpr inline QColor royalblue                {QColor::Rgb, 0xff * 0x101, 0x41 * 0x101, 0x69 * 0x101, 0xe1 * 0x101};</a>
+<a name="456"><span class="lineNum">     456 </span>            :     constexpr inline QColor saddlebrown              {QColor::Rgb, 0xff * 0x101, 0x8b * 0x101, 0x45 * 0x101, 0x13 * 0x101};</a>
+<a name="457"><span class="lineNum">     457 </span>            :     constexpr inline QColor salmon                   {QColor::Rgb, 0xff * 0x101, 0xfa * 0x101, 0x80 * 0x101, 0x72 * 0x101};</a>
+<a name="458"><span class="lineNum">     458 </span>            :     constexpr inline QColor sandybrown               {QColor::Rgb, 0xff * 0x101, 0xf4 * 0x101, 0xa4 * 0x101, 0x60 * 0x101};</a>
+<a name="459"><span class="lineNum">     459 </span>            :     constexpr inline QColor seagreen                 {QColor::Rgb, 0xff * 0x101, 0x2e * 0x101, 0x8b * 0x101, 0x57 * 0x101};</a>
+<a name="460"><span class="lineNum">     460 </span>            :     constexpr inline QColor seashell                 {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xf5 * 0x101, 0xee * 0x101};</a>
+<a name="461"><span class="lineNum">     461 </span>            :     constexpr inline QColor sienna                   {QColor::Rgb, 0xff * 0x101, 0xa0 * 0x101, 0x52 * 0x101, 0x2d * 0x101};</a>
+<a name="462"><span class="lineNum">     462 </span>            :     constexpr inline QColor silver                   {QColor::Rgb, 0xff * 0x101, 0xc0 * 0x101, 0xc0 * 0x101, 0xc0 * 0x101};</a>
+<a name="463"><span class="lineNum">     463 </span>            :     constexpr inline QColor skyblue                  {QColor::Rgb, 0xff * 0x101, 0x87 * 0x101, 0xce * 0x101, 0xeb * 0x101};</a>
+<a name="464"><span class="lineNum">     464 </span>            :     constexpr inline QColor slateblue                {QColor::Rgb, 0xff * 0x101, 0x6a * 0x101, 0x5a * 0x101, 0xcd * 0x101};</a>
+<a name="465"><span class="lineNum">     465 </span>            :     constexpr inline QColor slategray                {QColor::Rgb, 0xff * 0x101, 0x70 * 0x101, 0x80 * 0x101, 0x90 * 0x101};</a>
+<a name="466"><span class="lineNum">     466 </span>            :     constexpr inline QColor slategrey                {QColor::Rgb, 0xff * 0x101, 0x70 * 0x101, 0x80 * 0x101, 0x90 * 0x101};</a>
+<a name="467"><span class="lineNum">     467 </span>            :     constexpr inline QColor snow                     {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xfa * 0x101, 0xfa * 0x101};</a>
+<a name="468"><span class="lineNum">     468 </span>            :     constexpr inline QColor springgreen              {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0xff * 0x101, 0x7f * 0x101};</a>
+<a name="469"><span class="lineNum">     469 </span>            :     constexpr inline QColor steelblue                {QColor::Rgb, 0xff * 0x101, 0x46 * 0x101, 0x82 * 0x101, 0xb4 * 0x101};</a>
+<a name="470"><span class="lineNum">     470 </span>            :     constexpr inline QColor tan                      {QColor::Rgb, 0xff * 0x101, 0xd2 * 0x101, 0xb4 * 0x101, 0x8c * 0x101};</a>
+<a name="471"><span class="lineNum">     471 </span>            :     constexpr inline QColor teal                     {QColor::Rgb, 0xff * 0x101, 0x00 * 0x101, 0x80 * 0x101, 0x80 * 0x101};</a>
+<a name="472"><span class="lineNum">     472 </span>            :     constexpr inline QColor thistle                  {QColor::Rgb, 0xff * 0x101, 0xd8 * 0x101, 0xbf * 0x101, 0xd8 * 0x101};</a>
+<a name="473"><span class="lineNum">     473 </span>            :     constexpr inline QColor tomato                   {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0x63 * 0x101, 0x47 * 0x101};</a>
+<a name="474"><span class="lineNum">     474 </span>            :     constexpr inline QColor turquoise                {QColor::Rgb, 0xff * 0x101, 0x40 * 0x101, 0xe0 * 0x101, 0xd0 * 0x101};</a>
+<a name="475"><span class="lineNum">     475 </span>            :     constexpr inline QColor violet                   {QColor::Rgb, 0xff * 0x101, 0xee * 0x101, 0x82 * 0x101, 0xee * 0x101};</a>
+<a name="476"><span class="lineNum">     476 </span>            :     constexpr inline QColor wheat                    {QColor::Rgb, 0xff * 0x101, 0xf5 * 0x101, 0xde * 0x101, 0xb3 * 0x101};</a>
+<a name="477"><span class="lineNum">     477 </span>            :     constexpr inline QColor white                    {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xff * 0x101, 0xff * 0x101};</a>
+<a name="478"><span class="lineNum">     478 </span>            :     constexpr inline QColor whitesmoke               {QColor::Rgb, 0xff * 0x101, 0xf5 * 0x101, 0xf5 * 0x101, 0xf5 * 0x101};</a>
+<a name="479"><span class="lineNum">     479 </span>            :     constexpr inline QColor yellow                   {QColor::Rgb, 0xff * 0x101, 0xff * 0x101, 0xff * 0x101, 0x00 * 0x101};</a>
+<a name="480"><span class="lineNum">     480 </span>            :     constexpr inline QColor yellowgreen              {QColor::Rgb, 0xff * 0x101, 0x9a * 0x101, 0xcd * 0x101, 0x32 * 0x101};</a>
+<a name="481"><span class="lineNum">     481 </span>            : }  // namespace Svg</a>
+<a name="482"><span class="lineNum">     482 </span>            : }  // namespace QColorLiterals</a>
+<a name="483"><span class="lineNum">     483 </span>            : </a>
+<a name="484"><span class="lineNum">     484 </span>            : QT_END_NAMESPACE</a>
+<a name="485"><span class="lineNum">     485 </span>            : </a>
+<a name="486"><span class="lineNum">     486 </span>            : #endif // QCOLOR_H</a>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.14</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

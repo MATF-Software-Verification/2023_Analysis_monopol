@@ -68,4 +68,34 @@
 - U nastavku je data izlaz pokretanja projekta monopolyUnitTests: 
 ![image](./screenshots/unitTesting.png)
 
-- **Zakljucak**: Sa slike se može primetiti da su svi napisani testovi uspešno prošli i  time se potvrđuje funkcionalnost testiranih metoda - oni zaista rade ono što se od njih očekuje. Međutim, to ne znači nuzno da su svi metodi ispravni. Vise o tome će biti reči u sledećoj temu - pokrivenosti koda testovima.
+- **Zakljucak**: Sa slike se može primetiti da su svi napisani testovi uspešno prošli i  time se potvrđuje funkcionalnost testiranih metoda - oni zaista rade ono što se od njih očekuje. Međutim, to ne znači nuzno da su svi metodi ispravni. Vise o tome će biti reči u sledećoj temi - pokrivenosti koda testovima.
+
+
+## Code coverage - Gcov
+
+- Nakon testiranja jedinica koda, neophodno je iskoristiti neku metriku pomoću koje se procenjuje kolika je pokrivenost koda tim testovima i u te svrhe je korišćen alat Gcov.
+- Najpre, neophodno je izmeniti .pro fajl projekta u kome su napisani testovi da bi se pratila ova metrika. To je moguće uraditi na jednostavan način, dodavanjem sledećeg:
+```
+QMAKE_CXXFLAGS += --coverage
+QMAKE_LFLAGS += --coverage
+```
+
+- Prilikom build procesa nastaju dodatni .gcda i .gcno fajlovi. Nakon toga ovako izgrađen program se izvršava. Nakon izvršavanja se može izgenerisati izveštaj na sledeći način:
+```
+lcov --capture --directory . --output-file report.info
+```
+![image](./screenshots/Gcov_1.png)
+
+
+- Ovako dobijen izveštaj je veoma nečitljiv, ali se može sledećom komandom otvoriti detaljan pregled pokrivenosti koda u veb pregledaču:
+```
+genhtml -o result report.info
+```
+![image](./screenshots/Gcov_3.png)
+
+- Sledi pregled index.html stranice:
+![image](./screenshots/Gcov_4.png)
+![image](./screenshots/Gcov_5.png)
+
+
+- **Zaključak**: Na poslednjoj slici se vidi da pokrivenost linija iznosi **36,8**, dok je pokrivenost funkcija **39,9**. Ove vrednosti nisu dovoljne i ne smatraju se dobrom, već niskom pokrivenošću, ali su značajan napredak u odnosu na raniju verziju gde testova nije ni bilo. Iz navedenog je jasno da uz mali broj napisanih testova se značajno popravlja pokrivenost i time se osigurava ispravnost koda - da li radi ono sto se od njega očekuje. Jasno se vidi iz sadržaja dokumenta index.html da je zapravo pokrivenost dostigla određeni procenat zahvaljujući testovima koji su napisani, za klase **Player**, **Bank** i **Field**. Međutim, iako uz par testova postignut neki stepen pokrivenosti linija i funcija, nekada to nije dovoljna metrika, već je neophodno da postoji i visok stepen pokrivenosti grana što ovde svakako nije slučaj. Kod koji nije testiran se smatra veoma lošim, a često i neupotrebljivim, i treba težati pokrivenosti od približno 100%.
