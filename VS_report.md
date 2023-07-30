@@ -278,7 +278,7 @@ U okviru CMakeLists.txt je dodat fleg za debag režim, kako bi se izbacile sve o
 - U drugom delu izveštaja se mogu videti statistike za: definitivno, indirentno, moguće izgubljene, kao i one blokove na koje još uvek postoji referenca. Ovde je od interesa posmatrati definitivno izgubljene blokove, što je **1488 bajtova** i taj podatak nije baš pohvalan.
 - Prvi problem ukazuje da objekat klase Game nikada nije oslobođen, dok npr. šesti ukazuje na problem pri pozivu metoda ```monopoly->initialize_board()```, kojim se kreira veliki broj objekata koji nikada nisu oslobođeni. Ostali primeri se odnose na neke bibliotečke funkcije čiji stek memcheck ne uspeva da isprati.
 
-- Osnovna stvar koja je urađena jeste ignorisanje nekih Qt UI komponenti jer one dosta utiču na upravljanje memorijom. Zatim, neophodno je osloboditi klase: Game, Board i Welcome po završetku igre, u main klasi. To je neophodno uraditi korišćenjem operatora deleteLater, umesto obicnog delete. Takođe, u nekim destruktorima su dodata oslobađanja koja nisu ranije postojala, npr. u destruktoru klase **Game***, je oslobođen niz botova.
+- Osnovna stvar koja je urađena jeste ignorisanje nekih Qt UI komponenti jer one dosta utiču na upravljanje memorijom. Zatim, neophodno je osloboditi klase: Game, Board i Welcome po završetku igre, u main klasi. To je neophodno uraditi korišćenjem operatora deleteLater, umesto obicnog delete. Takođe, u nekim destruktorima su dodata oslobađanja koja nisu ranije postojala, npr. u destruktoru klase **Game**, je oslobođen niz botova.
 - Još jedna sitna izmena, koja je dosta uticala na smanjenje curenja memorije jeste oslobađanje jedne privremene promenljive koja je napravljena u metodi ``` Board::add_buttons()```, a pošto se kreira veliki broj ovakvih objekata, na ovaj način je spašeno dosta memorije od curenja.
 - Sada izveštaj izgleda ovako:
 
@@ -297,3 +297,106 @@ LEAK SUMMARY:
 ```
 
 - **Zaključak**: Uz nekoliko manjih izmena curenje memorije je značajno smanjeno, sada iznosti **256 definitivno izgubljenih bajtova**, a bilo je **1488**. Ovo nije dovoljno i poželjno je da curenja uopšte nema, ali većina ostalih problema potiče od klasa koja dolaze iz Qt. 
+
+
+
+## Valgrind - massif
+
+- Sledeći alat koji je korišćen za analizu koda projekta Monopol je **massif**, alat za analizu hip memorije. On se koristi za otkrivanje posebne vrste curenja memorije - kada nije izgubljena referenca na neki objekat, već se on jednostavno ne koristi i time se troši velika količina memorije bespotrebno. 
+- Prethodno izgrađen projekat, korišćenjem cmake alata se pokreće na sledeći način: 
+``` valgrind --tool=massif ./monopoly ```
+- Ovime se dobija izlaz koji je veoma nečitljivom formatu, a da bi se dobio željeni graf, izlaz se preusmerava korišćenjem ms_print-a:
+``` ms_print massif.out.41769 > massif.txt ```
+
+- Sadržaj fajla:
+
+```
+    MB
+32.16^                                          @                             
+     |           #::: ::::::::::@:::::::::::::::@:           ::::::@::     : :
+     |           #::: :::::::: :@:::::::::::::::@:           ::::::@::     : :
+     |           #::: :::::::: :@:::::::::::::::@:           ::::::@::     : :
+     |           #::: :::::::: :@:::::::::::::::@:           ::::::@::     :::
+     |           #:::@:::::::: :@:::::::::::::::@:::::@::::::@:::::@:::::@::::
+     |           #:::@:::::::: :@:::::::::::::::@:::::@::::::@:::::@:::::@::::
+     |           #:::@:::::::: :@:::::::::::::::@:::::@::::::@:::::@:::::@::::
+     |           #:::@:::::::: :@:::::::::::::::@:::::@::::::@:::::@:::::@::::
+     |           #:::@:::::::: :@:::::::::::::::@:::::@::::::@:::::@:::::@::::
+     |         @:#:::@:::::::: :@:::::::::::::::@:::::@::::::@:::::@:::::@::::
+     |         @:#:::@:::::::: :@:::::::::::::::@:::::@::::::@:::::@:::::@::::
+     |         @:#:::@:::::::: :@:::::::::::::::@:::::@::::::@:::::@:::::@::::
+     |         @:#:::@:::::::: :@:::::::::::::::@:::::@::::::@:::::@:::::@::::
+     |        :@:#:::@:::::::: :@:::::::::::::::@:::::@::::::@:::::@:::::@::::
+     |        :@:#:::@:::::::: :@:::::::::::::::@:::::@::::::@:::::@:::::@::::
+     |       ::@:#:::@:::::::: :@:::::::::::::::@:::::@::::::@:::::@:::::@::::
+     |       ::@:#:::@:::::::: :@:::::::::::::::@:::::@::::::@:::::@:::::@::::
+     |      @::@:#:::@:::::::: :@:::::::::::::::@:::::@::::::@:::::@:::::@::::
+     |::::::@::@:#:::@:::::::: :@:::::::::::::::@:::::@::::::@:::::@:::::@::::
+   0 +----------------------------------------------------------------------->Gi
+     0                                                                   3.940
+
+Number of snapshots: 96
+Detailed snapshots: [7, 11, 13 (peak), 17, 27, 49, 59, 69, 79, 89]
+
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+  0              0                0                0             0            0
+  1     58,551,805        1,744,232        1,669,188        75,044            0
+  2    100,028,443        1,749,416        1,674,244        75,172            0
+  3    155,849,561        2,348,096        2,199,966       148,130            0
+  4    214,113,208        2,470,112        2,314,110       156,002            0
+  5    252,160,743        2,611,544        2,381,905       229,639            0
+  6    314,424,703        2,886,696        2,569,686       317,010            0
+  7    363,682,025        4,550,912        4,233,113       317,799            0
+```
+
+- **Zaključak**: massif je napravio 96 preseka stanja, od kojih je posebno izdvojio neke, tako da se jasno vidi da se pik u utrošku memorije dostiže u **trinaestom** preseku i iznosi **32.16MB**. Podaci o ostalim presecima se mogu naći u priloženom fajlu. Na osnovu njega se može zaključiti da program troši razumnu količinu memorije i da nema nekih neobičnih promena, poput skokova ili padova, već se postepeno dostiže jedna vrednost i onda se manje-više osciluje oko nje.
+
+- Slična statistika o upotrebi steka se može dobiti pokretanjem programa na isti način, uz dodavanje flega:
+``` valgrind --tool=massif --stack=yes ./monopoly ```
+- Sadržaj fajla:
+
+```
+    MB
+32.19^                                              :                         
+     |               #::::::::@@::::::::::::::::@::::@:::@::::@:::: :::::::   
+     |               #:: :: : @ :: ::: : ::: :: @::::@: :@::::@:::: :::::::  :
+     |               #:: :: : @ :: ::: : ::: :: @::::@: :@::::@:::: :::::::  :
+     |               #:: :: : @ :: ::: : ::: :: @::::@: :@::::@:::: :::::::@::
+     |               #:: :: : @ :: ::: : ::: :: @::::@: :@::::@::::@:::::::@::
+     |               #:: :: : @ :: ::: : ::: :: @::::@: :@::::@::::@:::::::@::
+     |               #:: :: : @ :: ::: : ::: :: @::::@: :@::::@::::@:::::::@::
+     |               #:: :: : @ :: ::: : ::: :: @::::@: :@::::@::::@:::::::@::
+     |               #:: :: : @ :: ::: : ::: :: @::::@: :@::::@::::@:::::::@::
+     |             ::#:: :: : @ :: ::: : ::: :: @::::@: :@::::@::::@:::::::@::
+     |             : #:: :: : @ :: ::: : ::: :: @::::@: :@::::@::::@:::::::@::
+     |             : #:: :: : @ :: ::: : ::: :: @::::@: :@::::@::::@:::::::@::
+     |             : #:: :: : @ :: ::: : ::: :: @::::@: :@::::@::::@:::::::@::
+     |             : #:: :: : @ :: ::: : ::: :: @::::@: :@::::@::::@:::::::@::
+     |            :: #:: :: : @ :: ::: : ::: :: @::::@: :@::::@::::@:::::::@::
+     |          @@:: #:: :: : @ :: ::: : ::: :: @::::@: :@::::@::::@:::::::@::
+     |         :@ :: #:: :: : @ :: ::: : ::: :: @::::@: :@::::@::::@:::::::@::
+     |        @:@ :: #:: :: : @ :: ::: : ::: :: @::::@: :@::::@::::@:::::::@::
+     | :::::::@:@ :: #:: :: : @ :: ::: : ::: :: @::::@: :@::::@::::@:::::::@::
+   0 +----------------------------------------------------------------------->Gi
+     0                                                                   2.834
+
+Number of snapshots: 68
+Detailed snapshots: [8, 10, 13 (peak), 20, 32, 37, 41, 46, 53, 63]
+
+--------------------------------------------------------------------------------
+  n        time(i)         total(B)   useful-heap(B) extra-heap(B)    stacks(B)
+--------------------------------------------------------------------------------
+  0              0                0                0             0            0
+  1     27,686,357        1,472,120        1,406,836        60,132        5,152
+  2     73,950,075        1,764,088        1,673,220        74,956       15,912
+  3    109,280,593        2,157,976        2,011,521       128,951       17,504
+  4    161,537,238        2,367,304        2,208,846       148,562        9,896
+  5    206,057,158        2,462,040        2,297,470       154,674        9,896
+  6    270,834,180        2,722,016        2,402,400       269,768       49,848
+  7    320,243,546        2,905,080        2,570,304       316,888       17,888
+  8    363,826,484        4,623,608        4,286,207       317,193       20,208
+```
+
+- **Zaključak**: massif je ovog puta napravio 68 preseka stanja, od kojih je posebno izdvojio neke, tako da se jasno vidi da se pik u utrošku memorije dostiže ponovo u **trinaestom** preseku i sada iznosi **32.19MB**. Podaci o ostalim presecima se mogu naći u priloženom fajlu. Na osnovu njega se može zaključiti veoma slično kao u prethodnom slučaju.
