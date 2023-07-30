@@ -1,0 +1,115 @@
+==40122== Memcheck, a memory error detector
+==40122== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==40122== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==40122== Command: ./monopoly
+==40122== Parent PID: 5046
+==40122== 
+==40122== Invalid read of size 8
+==40122==    at 0x40286C8: strncmp (strcmp.S:172)
+==40122==    by 0x400668D: is_dst (dl-load.c:216)
+==40122==    by 0x400810E: _dl_dst_count (dl-load.c:253)
+==40122==    by 0x400810E: expand_dynamic_string_token (dl-load.c:395)
+==40122==    by 0x40082B7: fillin_rpath.isra.0 (dl-load.c:483)
+==40122==    by 0x4008602: decompose_rpath (dl-load.c:654)
+==40122==    by 0x400ABF5: cache_rpath (dl-load.c:696)
+==40122==    by 0x400ABF5: cache_rpath (dl-load.c:677)
+==40122==    by 0x400ABF5: _dl_map_object (dl-load.c:2165)
+==40122==    by 0x4003494: openaux (dl-deps.c:64)
+==40122==    by 0x5F30C27: _dl_catch_exception (dl-error-skeleton.c:208)
+==40122==    by 0x4003C7B: _dl_map_object_deps (dl-deps.c:248)
+==40122==    by 0x400EA0E: dl_open_worker_begin (dl-open.c:592)
+==40122==    by 0x5F30C27: _dl_catch_exception (dl-error-skeleton.c:208)
+==40122==    by 0x400DF99: dl_open_worker (dl-open.c:782)
+==40122==  Address 0xf12e149 is 9 bytes inside a block of size 15 alloc'd
+==40122==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==40122==    by 0x40271FF: malloc (rtld-malloc.h:56)
+==40122==    by 0x40271FF: strdup (strdup.c:42)
+==40122==    by 0x4008594: decompose_rpath (dl-load.c:629)
+==40122==    by 0x400ABF5: cache_rpath (dl-load.c:696)
+==40122==    by 0x400ABF5: cache_rpath (dl-load.c:677)
+==40122==    by 0x400ABF5: _dl_map_object (dl-load.c:2165)
+==40122==    by 0x4003494: openaux (dl-deps.c:64)
+==40122==    by 0x5F30C27: _dl_catch_exception (dl-error-skeleton.c:208)
+==40122==    by 0x4003C7B: _dl_map_object_deps (dl-deps.c:248)
+==40122==    by 0x400EA0E: dl_open_worker_begin (dl-open.c:592)
+==40122==    by 0x5F30C27: _dl_catch_exception (dl-error-skeleton.c:208)
+==40122==    by 0x400DF99: dl_open_worker (dl-open.c:782)
+==40122==    by 0x5F30C27: _dl_catch_exception (dl-error-skeleton.c:208)
+==40122==    by 0x400E34D: _dl_open (dl-open.c:883)
+==40122== 
+==40122== Invalid read of size 8
+==40122==    at 0x40286C8: strncmp (strcmp.S:172)
+==40122==    by 0x400668D: is_dst (dl-load.c:216)
+==40122==    by 0x4007F79: _dl_dst_substitute (dl-load.c:295)
+==40122==    by 0x40082B7: fillin_rpath.isra.0 (dl-load.c:483)
+==40122==    by 0x4008602: decompose_rpath (dl-load.c:654)
+==40122==    by 0x400ABF5: cache_rpath (dl-load.c:696)
+==40122==    by 0x400ABF5: cache_rpath (dl-load.c:677)
+==40122==    by 0x400ABF5: _dl_map_object (dl-load.c:2165)
+==40122==    by 0x4003494: openaux (dl-deps.c:64)
+==40122==    by 0x5F30C27: _dl_catch_exception (dl-error-skeleton.c:208)
+==40122==    by 0x4003C7B: _dl_map_object_deps (dl-deps.c:248)
+==40122==    by 0x400EA0E: dl_open_worker_begin (dl-open.c:592)
+==40122==    by 0x5F30C27: _dl_catch_exception (dl-error-skeleton.c:208)
+==40122==    by 0x400DF99: dl_open_worker (dl-open.c:782)
+==40122==  Address 0xf12e149 is 9 bytes inside a block of size 15 alloc'd
+==40122==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==40122==    by 0x40271FF: malloc (rtld-malloc.h:56)
+==40122==    by 0x40271FF: strdup (strdup.c:42)
+==40122==    by 0x4008594: decompose_rpath (dl-load.c:629)
+==40122==    by 0x400ABF5: cache_rpath (dl-load.c:696)
+==40122==    by 0x400ABF5: cache_rpath (dl-load.c:677)
+==40122==    by 0x400ABF5: _dl_map_object (dl-load.c:2165)
+==40122==    by 0x4003494: openaux (dl-deps.c:64)
+==40122==    by 0x5F30C27: _dl_catch_exception (dl-error-skeleton.c:208)
+==40122==    by 0x4003C7B: _dl_map_object_deps (dl-deps.c:248)
+==40122==    by 0x400EA0E: dl_open_worker_begin (dl-open.c:592)
+==40122==    by 0x5F30C27: _dl_catch_exception (dl-error-skeleton.c:208)
+==40122==    by 0x400DF99: dl_open_worker (dl-open.c:782)
+==40122==    by 0x5F30C27: _dl_catch_exception (dl-error-skeleton.c:208)
+==40122==    by 0x400E34D: _dl_open (dl-open.c:883)
+==40122== 
+==40122== 
+==40122== HEAP SUMMARY:
+==40122==     in use at exit: 19,227,964 bytes in 12,898 blocks
+==40122==   total heap usage: 81,017 allocs, 68,119 frees, 287,499,897 bytes allocated
+==40122== 
+==40122== 288 (256 direct, 32 indirect) bytes in 1 blocks are definitely lost in loss record 3,448 of 3,833
+==40122==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==40122==    by 0x98EAA21: ??? (in /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.0)
+==40122==    by 0x98ED590: ??? (in /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.0)
+==40122==    by 0x98F7B7C: ??? (in /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.0)
+==40122==    by 0x9AD1A13: ??? (in /usr/lib/x86_64-linux-gnu/libexpat.so.1.8.7)
+==40122==    by 0x9ACFD7D: ??? (in /usr/lib/x86_64-linux-gnu/libexpat.so.1.8.7)
+==40122==    by 0x9AD0C6B: ??? (in /usr/lib/x86_64-linux-gnu/libexpat.so.1.8.7)
+==40122==    by 0x9AD4DF4: XML_ParseBuffer (in /usr/lib/x86_64-linux-gnu/libexpat.so.1.8.7)
+==40122==    by 0x98F9332: ??? (in /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.0)
+==40122==    by 0x98F9AE8: ??? (in /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.0)
+==40122==    by 0x98F9C9D: ??? (in /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.0)
+==40122==    by 0x98F5ACB: ??? (in /usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.0)
+==40122== 
+==40122== 640 bytes in 4 blocks are possibly lost in loss record 3,618 of 3,833
+==40122==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==40122==    by 0x58F4C84: QObjectPrivate::addConnection(int, QObjectPrivate::Connection*) (in /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.3)
+==40122==    by 0x58F8BA7: ??? (in /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.3)
+==40122==    by 0x58FEEAE: QObject::connect(QObject const*, char const*, QObject const*, char const*, Qt::ConnectionType) (in /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.3)
+==40122==    by 0x4A7B2D7: ??? (in /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.3)
+==40122==    by 0x4A84444: ??? (in /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.3)
+==40122==    by 0x4A84C64: ??? (in /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.3)
+==40122==    by 0x4A86D64: ??? (in /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.3)
+==40122==    by 0x4AD535D: QAbstractButton::iconSize() const (in /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.3)
+==40122==    by 0x4B7C3A4: QPushButton::initStyleOption(QStyleOptionButton*) const (in /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.3)
+==40122==    by 0x4B7CFF9: ??? (in /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.3)
+==40122==    by 0x4B7D967: QPushButton::event(QEvent*) (in /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.3)
+==40122== 
+==40122== LEAK SUMMARY:
+==40122==    definitely lost: 256 bytes in 1 blocks
+==40122==    indirectly lost: 32 bytes in 1 blocks
+==40122==      possibly lost: 640 bytes in 4 blocks
+==40122==    still reachable: 19,227,036 bytes in 12,892 blocks
+==40122==         suppressed: 0 bytes in 0 blocks
+==40122== Reachable blocks (those to which a pointer was found) are not shown.
+==40122== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==40122== 
+==40122== For lists of detected and suppressed errors, rerun with: -s
+==40122== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)
