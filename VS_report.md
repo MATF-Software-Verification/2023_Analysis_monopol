@@ -400,3 +400,29 @@ Detailed snapshots: [8, 10, 13 (peak), 20, 32, 37, 41, 46, 53, 63]
 ```
 
 - **Zaključak**: massif je ovog puta napravio 68 preseka stanja, od kojih je posebno izdvojio neke, tako da se jasno vidi da se pik u utrošku memorije dostiže ponovo u **trinaestom** preseku i sada iznosi **32.19MB**. Podaci o ostalim presecima se mogu naći u priloženom fajlu. Na osnovu njega se može zaključiti veoma slično kao u prethodnom slučaju.
+
+
+
+## Clang-tidy i Clazy
+
+- Nakon obrade alata za dinamičku analizu koda, sledi jedan primer alata za statičku analizu koda - **Clang-tidy**. Ova vrsta analize omogućava analiziranje koda bez njegovog izvršavanja sa ciljem pronalaženja grešaka i samog poboljšanja kvaliteta koda. 
+
+- Clang-tidy je alat koji u sebi ima ugrađen statički analizator **Clang**, a **Clazy** omogućava Clangy da razume kod Qt-a. 
+- Pogodnost koja omogućava veoma laku, brzu i efikasnu upotrebu ovog alata je to što je on ugrađen u samo Qt okruženje. U nasavku je dat primer upotrebe ovog alat upravo iz Qt okruženja.
+- Najpre je potrebno klikom na tab, u gornjem meniju, ***Analize***, izabrati željeni alat, što je u ovo slučaju Clang-tidy i Clazy. Nakon čega se otvara sledeći prozor:
+
+![image](./screenshots/clang-tidy_1.png)
+
+- Na ovom mestu se mogu odabrati klase koje će biti statički analizirane. Podrazumevano su označene sve, međutim moguće je odabrati samo neke od njih. Zbog brzine i efikasnosti alata je uobičajeno primeniti odjednom na ceo projekat. Međutim, ovde zbog veće preglednosti odabrano je samo nekoliko klasa: **Field**, **Game**, **Player** i **Bank**, njihove .cpp i .hpp fajlove. 
+- Sledeći korak je klik na dugme Analyze nakon čega se generiše izveštaj. On se sastoji iz svih mogućih sugestija za izmenu, pregledno izdvojenih po klasama, sa kratkim objašnjenjem njihovog značenja i ukratko koracima za njihovu primenu. Svaku od tih pronađenih defekata je moguće manuelno izvršiti, ali i automatski, najpre čekiranjem željene izmene, a potom klikom na **Apply Fixits**. 
+- Dva primera sugestija ovog alata koje su primenjene date su u nastavku:
+
+![image](./screenshots/clang-tidy_2.png)
+
+- Dobra je praksa da kada je destruktor podrazumevan, umesto prazne implementacije u .cpp fajlu, se samo doda ključna reč **default** kod njegove deklaracije.
+
+![image](./screenshots/clang-tidy_3.png)
+
+- Memorijski je dosta efikasnije prenositi veće objekte po referenci, takođe i konstantnoj referenci ukoliko neće biti menjani u tom metodu kojem se prosleđuju.
+
+- **Zaključak**: Ovakva vrsta alata je veoma korisna, međutim nije uvek pametno primeniti sve sugestije koje je Clang-tidy izgenerisao. Nekada se neke od njih ne uklapaju u stil kodiranja koji se koristi ili čini kod još nečitljivijim, a takođe može doći i do nekih kolizija. Jedan primer toga jeste sugestija da se u svim povratnim vrednostima funcija koristi ključna reč **auto**. Iz tog razloga je bolje prvo pregledati detaljno izveštaj, odabrati željene izmene,  zatim primeniti automatski. U ovom projektu ima mesta za ispravke ovog tipa, ali ne u prevelikoj meri.
