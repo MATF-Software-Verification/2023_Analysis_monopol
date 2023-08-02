@@ -6,6 +6,9 @@ CONFIG += c++11
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+QMAKE_CXXFLAGS += --coverage
+QMAKE_LFLAGS += --coverage
+
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 TEMPLATE = app
