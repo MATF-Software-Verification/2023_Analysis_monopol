@@ -1,0 +1,371 @@
+diff --git a/monopoly/CMakeLists.txt b/monopoly/CMakeLists.txt
+index e7c01f4..991fca9 100644
+--- a/monopoly/CMakeLists.txt
++++ b/monopoly/CMakeLists.txt
+@@ -4,7 +4,8 @@ project(monopoly VERSION 1.0.0 LANGUAGES CXX)
+ set(CMAKE_CXX_STANDARD 17)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+ 
+-
++list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -Wall -Wextra --coverage")
+ 
+ set(CMAKE_INCLUDE_CURRENT_DIR ON)
+ set(CMAKE_AUTOMOC ON)
+diff --git a/monopoly/include/game.hpp b/monopoly/include/game.hpp
+index e11ee93..b23b131 100644
+--- a/monopoly/include/game.hpp
++++ b/monopoly/include/game.hpp
+@@ -40,7 +40,7 @@ public:
+     //Function for the bottom right part of the screen
+     void display_user_info();
+ 
+-    Board *getBoard() const {return board_;}
++    [[nodiscard]] Board *getBoard() const {return board_;}
+ 
+     void init_game();
+     QString notification_string_;
+diff --git a/monopoly/include/player.hpp b/monopoly/include/player.hpp
+index 2d868c8..6031136 100644
+--- a/monopoly/include/player.hpp
++++ b/monopoly/include/player.hpp
+@@ -85,7 +85,7 @@ public:
+         QMap<QString, Rectangle_with_text *>get_owned_rectangles_with_text() const {return owned_rectangles_with_text_;}
+         void add_new_rectnagle_with_text(Rectangle_with_text*);
+         void remove_rectangle_with_text(QString);
+-        Rectangle_with_text* find_rectangle_with_text(QString name);
++        Rectangle_with_text* find_rectangle_with_text(const QString& name);
+         void disable_all_rectangles_with_text(bool val);
+ 
+ 
+diff --git a/monopoly/monopoly.pro b/monopoly/monopoly.pro
+index fbecb5d..0247932 100644
+--- a/monopoly/monopoly.pro
++++ b/monopoly/monopoly.pro
+@@ -4,14 +4,14 @@ QT += multimedia
+ 
+ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+ 
+-CONFIG += console c++17
++CONFIG += console c++11
+ #QT -= core gui
+ #TEMPLATE = app
+ #CONFIG += console
+ 
+ # You can make your code fail to compile if it uses deprecated APIs.
+ # In order to do so, uncomment the following line.
+-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
++DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+ 
+ SOURCES += \
+     src/game_graphics.cpp \
+diff --git a/monopoly/src/board.cpp b/monopoly/src/board.cpp
+index fd023c4..e499207 100644
+--- a/monopoly/src/board.cpp
++++ b/monopoly/src/board.cpp
+@@ -20,9 +20,13 @@ Board::~Board()
+         delete f.second;
+ 
+     for (auto b : buttons_fields_)
+-            delete b;
+-    delete scene_;
+-}
++        b->deleteLater();
++
++    for(auto player : players_)
++        player->deleteLater();
++
++    scene_->deleteLater();
++ }
+ 
+ void Board::set_dice_numbers()
+ {
+@@ -520,6 +524,7 @@ void Board::add_buttons(QGraphicsItem *rect_outer)
+            buttons_fields_.push_back(new Button(i, fields_[i]->get_name(), kind, rotation, x_pos, y_pos, rect_outer));
+ 
+         }
++        delete card_prop;
+ 
+     }
+ }
+diff --git a/monopoly/src/button.cpp b/monopoly/src/button.cpp
+index ae4fc97..ada112e 100644
+--- a/monopoly/src/button.cpp
++++ b/monopoly/src/button.cpp
+@@ -22,7 +22,8 @@ Button::Button(unsigned id, QString text, Field_kind kind, qint64 rotation, qint
+     this->setParentItem(parent);
+ }
+ 
+-Button::~Button(){}
++Button::~Button(){
++}
+ 
+ QRectF Button::boundingRect() const
+ {
+diff --git a/monopoly/src/game_logic.cpp b/monopoly/src/game_logic.cpp
+index 59ef0c7..43a56ba 100644
+--- a/monopoly/src/game_logic.cpp
++++ b/monopoly/src/game_logic.cpp
+@@ -96,19 +96,21 @@ void Game::init_game(){
+ Game::~Game(){
+ 
+     for (Player* player : players){
++        
+         delete player;
+     }
+ 
++    for(Player* bot : bot_players_)
++    {
++        delete bot;
++    }
++
+     if (community_jail_card.first != nullptr)
+         delete community_jail_card.first;
+ 
+ 
+     if (chance_jail_card.first != nullptr)
+         delete chance_jail_card.first;
+-
+-    while(!order.empty()){
+-        order.pop();
+-    }
+ }
+ 
+ void Game::return_score(){
+diff --git a/monopoly/src/game_mortgage.cpp b/monopoly/src/game_mortgage.cpp
+index fc39dfc..08a6c53 100644
+--- a/monopoly/src/game_mortgage.cpp
++++ b/monopoly/src/game_mortgage.cpp
+@@ -48,8 +48,8 @@ void Game::pay_after_mortgaging(int money)
+ 
+         if(curr_player_->pay_to_player(p, sum))
+         {
+-         notification_string_.append(  curr_player_->get_name() + " paid " + money + "€ after mortgaging.");
+-         notification_string_.append(  curr_player_->get_name() + " current budget is " +curr_player_->get_budget() + "€.");
++         notification_string_.append(  curr_player_->get_name() + " paid " + QString::number(money) + "€ after mortgaging.");
++         notification_string_.append(  curr_player_->get_name() + " current budget is " + QString::number(curr_player_->get_budget()) + "€.");
+ 
+          if(p->get_id()==0){
+              Rectangle_with_text *budget_rect = qgraphicsitem_cast<Rectangle_with_text*>(board_->view_->itemAt(1055, 570));
+diff --git a/monopoly/src/game_options.cpp b/monopoly/src/game_options.cpp
+index 2e158ea..54ffe39 100644
+--- a/monopoly/src/game_options.cpp
++++ b/monopoly/src/game_options.cpp
+@@ -283,7 +283,7 @@ void Game::sell_one_estate(){
+     set_top_notif_and_okay(str);
+     }
+     else{
+-         notification_string_.append(curr_player_->get_name() + " is selling an estate. Current number of estates is "+chosen_field->get_num_of_houses()+".");
++         notification_string_.append(curr_player_->get_name() + " is selling an estate. Current number of estates is "+ QString::number(chosen_field->get_num_of_houses())+".");
+     }
+ 
+ }
+@@ -312,7 +312,7 @@ void Game::pay_to_other_player()
+        if(curr_player_->pay_to_player(p, sum))
+        {
+             std::cout<<"You paid " << sum << " to player " << p->get_name().toStdString()<<std::endl;
+-            notification_string_.append(curr_player_->get_name() + " paid to " + p->get_name() + sum + "€. ");
++            notification_string_.append(curr_player_->get_name() + " paid to " + p->get_name() + QString::number(sum) + "€. ");
+ 
+             change_budget_rect();
+ 
+diff --git a/monopoly/src/game_over.cpp b/monopoly/src/game_over.cpp
+index 3ed965f..685a565 100644
+--- a/monopoly/src/game_over.cpp
++++ b/monopoly/src/game_over.cpp
+@@ -1,5 +1,5 @@
+ #include "../include/game_over.h"
+-#include "../build/ui_game_over.h"
++#include "ui_game_over.h"
+ 
+ 
+ void Game_over::set_frame(){
+@@ -94,7 +94,7 @@ void Game_over::resizeEvent(QResizeEvent *event)
+ }
+ Game_over::~Game_over()
+ {
+-    delete frame;
++    frame->deleteLater();
+     delete ui;
+ }
+ 
+diff --git a/monopoly/src/main.cpp b/monopoly/src/main.cpp
+index 18f704d..4d5659a 100644
+--- a/monopoly/src/main.cpp
++++ b/monopoly/src/main.cpp
+@@ -19,7 +19,6 @@
+ #include <QApplication>
+ #include <QGraphicsScene>
+ #include <QGraphicsView>
+-#include <QDesktopWidget>
+ #include <QGraphicsRectItem>
+ #include <QTime>
+ #include <cmath>
+@@ -29,7 +28,7 @@
+ int main(int argc, char *argv[])
+ {
+     QApplication a(argc, argv);
+-    qsrand(static_cast<unsigned>(QTime(0,0,0).secsTo(QTime::currentTime())));
++    srand(static_cast<unsigned>(QTime(0,0,0).secsTo(QTime::currentTime())));
+     a.setWindowIcon(QIcon(":/images/money_bag_icon.png"));
+ 
+   //*************************ZA PRIKAZ TABLE****************************************
+@@ -112,16 +111,27 @@ int main(int argc, char *argv[])
+ 
+     monopoly->init_game();
+ 
+-    QGraphicsView *view_table = new QGraphicsView(scene_table);
+-    view_table->setAlignment(Qt::AlignCenter);
+-    view_table->setRenderHint(QPainter::Antialiasing);
+-    view_table->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+-    view_table->setDragMode(QGraphicsView::ScrollHandDrag);
+-    view_table->setWindowTitle("Monopoly");
+-    view_table->showFullScreen();
+-    b->view_ = view_table;
++//    QGraphicsView *view_table = new QGraphicsView(scene_table);
++//    view_table->setAlignment(Qt::AlignCenter);
++//    view_table->setRenderHint(QPainter::Antialiasing);
++//    view_table->setAlignment(Qt::AlignTop | Qt::AlignLeft);
++//    view_table->setDragMode(QGraphicsView::ScrollHandDrag);
++//    view_table->setWindowTitle("Monopoly");
++//    view_table->showFullScreen();
++//    b->view_ = view_table;
+  
+ //    QTimer::singleShot(2500,&view,SLOT(showMaximized()));
+ 
+-    return a.exec();
++    //return a.exec();
++//    delete wlcm;
++//    delete b;
++//    delete monopoly;
++
++    wlcm->deleteLater();
++    b->deleteLater();
++    monopoly->deleteLater();
++
++    a.exit(0);
++
++    return 0;
+ }
+diff --git a/monopoly/src/pause.cpp b/monopoly/src/pause.cpp
+index bd942f3..de49866 100644
+--- a/monopoly/src/pause.cpp
++++ b/monopoly/src/pause.cpp
+@@ -1,5 +1,5 @@
+ #include "../include/pause.h"
+-#include "../build/ui_pause.h"
++#include "ui_pause.h"
+ 
+ Pause::Pause(QWidget *parent) :
+     QDialog(parent),
+@@ -18,13 +18,13 @@ Pause::Pause(QWidget *parent) :
+ 
+ Pause::~Pause() {delete ui;}
+ 
+-void Pause::button_click_sound()
+-{
+-    if (button_click->state() == QMediaPlayer::PlayingState)
+-        button_click->setPosition(0);
+-    else
+-        button_click->play();
+-}
++//void Pause::button_click_sound()
++//{
++//    if (button_click->state() == QMediaPlayer::PlayingState)
++//        button_click->setPosition(0);
++//    else
++//        button_click->play();
++//}
+ 
+ void Pause::button_resume_clicked()
+ {
+diff --git a/monopoly/src/player.cpp b/monopoly/src/player.cpp
+index 25f8019..53042de 100644
+--- a/monopoly/src/player.cpp
++++ b/monopoly/src/player.cpp
+@@ -3,10 +3,10 @@
+ Player::Player( unsigned id,QString name, unsigned position,
+         int budget)
+     : position_(position), budget_(budget), name(name), id(id),
+-      color_(qrand() % 256, qrand() % 256, qrand() % 256)
++      color_(rand() % 256, rand() % 256, rand() % 256)
+     {}
+ 
+-Player::~Player(){}
++Player::~Player()= default;
+ 
+ 
+ std::vector<Field*> Player::return_color_group(const QString color){
+@@ -312,7 +312,7 @@ void Player::remove_rectangle_with_text(QString rect_text)
+ 
+ }
+ 
+-Rectangle_with_text* Player::find_rectangle_with_text(QString name){
++auto Player::find_rectangle_with_text(const QString& name) -> Rectangle_with_text*{
+ 
+ 
+   QMap<QString,Rectangle_with_text*>::const_iterator iterator=owned_rectangles_with_text_.find(name);
+diff --git a/monopoly/src/rules.cpp b/monopoly/src/rules.cpp
+index a3bfbfa..9777372 100644
+--- a/monopoly/src/rules.cpp
++++ b/monopoly/src/rules.cpp
+@@ -1,5 +1,5 @@
+ #include "../include/rules.h"
+-#include "../build/ui_rules.h"
++#include "ui_rules.h"
+ 
+ Rules::Rules(QWidget *parent) :
+     QDialog(parent),
+@@ -23,13 +23,13 @@ void Rules::button_back_clicked()
+     delete this;
+ }
+ 
+-void Rules::button_click_sound() const
+-{
+-    if (button_click->state() == QMediaPlayer::PlayingState)
+-        button_click->setPosition(0);
+-    else
+-        button_click->play();
+-}
++//void Rules::button_click_sound() const
++//{
++//    if (button_click->state() == QMediaPlayer::PlayingState)
++//        button_click->setPosition(0);
++//    else
++//        button_click->play();
++//}
+ 
+ void Rules::keyPressEvent(QKeyEvent *event)
+ {
+diff --git a/monopoly/src/welcome.cpp b/monopoly/src/welcome.cpp
+index 4ef4685..c80a537 100644
+--- a/monopoly/src/welcome.cpp
++++ b/monopoly/src/welcome.cpp
+@@ -1,5 +1,5 @@
+ #include "../include/welcome.hpp"
+-#include "../build/ui_welcome.h"
++#include "ui_welcome.h"
+ 
+ Welcome::Welcome(QString *name, QString *token, QDialog *parent) :
+     QDialog(parent),
+@@ -86,13 +86,13 @@ void Welcome::rules_clicked()
+     rules->exec();
+ }
+ 
+-void Welcome::button_click_sound() const
+-{
+-    if (button_click->state() == QMediaPlayer::PlayingState)
+-        button_click->setPosition(0);
+-    else
+-        button_click->play();
+-}
++//void Welcome::button_click_sound() const
++//{
++//    if (button_click->state() == QMediaPlayer::PlayingState)
++//        button_click->setPosition(0);
++//    else
++//        button_click->play();
++//}
+ 
+ void Welcome::keyPressEvent(QKeyEvent *event)
+ {
