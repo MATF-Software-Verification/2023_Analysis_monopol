@@ -1,7 +1,7 @@
 # Izveštaj analize projekta
 
 ## Uvod
-- Analiza i primena alata je vršena na projektu **"Monopoly"**, koji se nalazi na adresi: https://gitlab.com/matf-bg-ac-rs/course-rs/projects-2020-2021/03-monopol. 
+- Analiza i primena alata je izvršena na projektu **"Monopoly"**, koji se nalazi na adresi: https://gitlab.com/matf-bg-ac-rs/course-rs/projects-2020-2021/03-monopol. 
 
 - Projekat je implementacija društvene igre "Monopol". Na početku partije, korisnik unosi svoje korisničko ime i bira jedan od ponuđenih tokena, a takođe može i da pročita pravila igre. Kada igra počne, pored korisnika, na tabli se nalaze još tri protivnička igrača, tri bota. Implementirana su sva pravila koja zaista postoje u ovoj igri. Pobednik je takmičar koji poslednji ostane u igri, odnosno onaj koji nije bankrotirao.
 
@@ -36,7 +36,7 @@
         - Test proverava rad metoda receive_money kojim se povećava vrednost budžeta prilikom uplate neke sume igraču.
 
     - void testMoveForward();
-        - Test proverava rad metoda move_forward kojim se vrši kretanje igrača po tabli i time mu se pomera tekuća pozicija.
+        - Test proverava rad metoda move_forward kojim se vrši kretanje igrača po tabli i time mu se menja tekuća pozicija.
 
     - void testCalculateTotalWorth()
         - Test proverava rad metoda calculate_total_worth koji racuna ukupnu vrednost svih poseda i nekretnina koje igrač poseduje.
@@ -48,16 +48,16 @@
         - Test proverava rad metoda add_property kojim se kupuje uspesno posed jer postoji dovoljna kolicina novca u budžetu.
 
     - void testPayMortgage();
-        - Test proverava rad metoda pay_mortgage koji visi proveru mogucnosti placanja hipoteke u zavisnosti od trenutnog budžeta.
+        - Test proverava rad metoda pay_mortgage koji viši proveru mogućnosti placanja hipoteke u zavisnosti od trenutnog budžeta.
 
     - void testUpdateNumEstates();
-        - Test proverava rad metoda update_num_estates koji vrsi ažuriranje broja nekretnina u zavisnosti od njene vrste.
+        - Test proverava rad metoda update_num_estates koji vrši ažuriranje broja nekretnina u zavisnosti od njene vrste.
 
     - void testSellProperty();
-        - Test provrava rad metoda sell_property kojim se vrsi prodaja citavog poseda. 
+        - Test provrava rad metoda sell_property kojim se vrši prodaja čitavog poseda. 
 
     - void testSellEstate();
-        - Test proverava rad metoda sell_estate kojim se vrsi prodaja nekretnine sa prosleđenog poseda u zavisnosti od vrste nekretnine na posedu.
+        - Test proverava rad metoda sell_estate kojim se vrši prodaja nekretnine sa prosleđenog poseda u zavisnosti od vrste nekretnine na posedu.
 
 - Testovi kojima se testira klasa **Bank**:
     - void testPaySalary();
@@ -83,7 +83,7 @@
 - U nastavku je data izlaz pokretanja projekta monopolyUnitTests: 
 ![image](./screenshots/unitTesting.png)
 
-- **Zakljucak**: Sa slike se može primetiti da su svi napisani testovi uspešno prošli i  time se potvrđuje funkcionalnost testiranih metoda - oni zaista rade ono što se od njih očekuje. Međutim, to ne znači nuzno da su svi metodi ispravni. Vise o tome će biti reči u sledećoj temi - pokrivenosti koda testovima.
+- **Zakljucak**: Sa slike se može primetiti da su svi napisani testovi uspešno prošli i  time se potvrđuje funkcionalnost testiranih metoda - oni zaista rade ono što se od njih očekuje. Međutim, to ne znači nuzno da su svi metodi ispravni. Više o tome će biti reči u sledećoj temi - pokrivenosti koda testovima.
 
 
 ## Code coverage - Gcov
@@ -289,7 +289,7 @@ U okviru CMakeLists.txt je dodat fleg za debag režim, kako bi se izbacile sve o
 ==7607== ERROR SUMMARY: 8 errors from 8 contexts (suppressed: 0 from 0)
 ```
 
-- Na početku izveštaja se mogu videti neke greške povezane sa neispravnom upotrebnom memorije, verovatno pokušaj pristupa već oslobođenoj memoriji. Stek ukazuje na neke bibliotečke funkcije za poređene stringova.
+- Na početku izveštaja se mogu videti neke greške povezane sa neispravnom upotrebnom memorije, verovatno pokušaj pristupa već oslobođenoj memoriji. Stek ukazuje na neke bibliotečke funkcije za poređenje stringova.
 - U drugom delu izveštaja se mogu videti statistike za: definitivno, indirentno, moguće izgubljene, kao i one blokove na koje još uvek postoji referenca. Ovde je od interesa posmatrati definitivno izgubljene blokove, što je **1488 bajtova** i taj podatak nije baš pohvalan.
 - Prvi problem ukazuje da objekat klase Game nikada nije oslobođen, dok npr. šesti ukazuje na problem pri pozivu metoda ```monopoly->initialize_board()```, kojim se kreira veliki broj objekata koji nikada nisu oslobođeni. Ostali primeri se odnose na neke bibliotečke funkcije čiji stek memcheck ne uspeva da isprati.
 
@@ -311,7 +311,7 @@ LEAK SUMMARY:
 ==40122== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)
 ```
 
-- **Zaključak**: Uz nekoliko manjih izmena curenje memorije je značajno smanjeno, sada iznosti **256 definitivno izgubljenih bajtova**, a bilo je **1488**. Ovo nije dovoljno i poželjno je da curenja uopšte nema, ali većina ostalih problema potiče od klasa koja dolaze iz Qt. 
+- **Zaključak**: Uz nekoliko manjih izmena curenje memorije je značajno smanjeno, sada iznosi **256 definitivno izgubljenih bajtova**, a bilo je **1488**. Ovo nije dovoljno i poželjno je da curenja uopšte nema, ali većina ostalih problema potiče od klasa koja dolaze iz Qt. 
 
 
 
@@ -422,7 +422,7 @@ Detailed snapshots: [8, 10, 13 (peak), 20, 32, 37, 41, 46, 53, 63]
 
 - Nakon obrade alata za dinamičku analizu koda, sledi jedan primer alata za statičku analizu koda - **Clang-tidy**. Ova vrsta analize omogućava analiziranje koda bez njegovog izvršavanja sa ciljem pronalaženja grešaka i samog poboljšanja kvaliteta koda. 
 
-- Clang-tidy je alat koji u sebi ima ugrađen statički analizator **Clang**, a **Clazy** omogućava Clangy da razume kod Qt-a. 
+- Clang-tidy je alat koji u sebi ima ugrađen statički analizator **Clang**, a **Clazy** omogućava Clang-u da razume kod Qt-a. 
 - Pogodnost koja omogućava veoma laku, brzu i efikasnu upotrebu ovog alata je to što je on ugrađen u samo Qt okruženje. U nasavku je dat primer upotrebe ovog alat upravo iz Qt okruženja.
 - Najpre je potrebno klikom na tab, u gornjem meniju, ***Analize***, izabrati željeni alat, što je u ovo slučaju Clang-tidy i Clazy. Nakon čega se otvara sledeći prozor:
 

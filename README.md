@@ -1,7 +1,7 @@
 # 2023_Analysis_monopol
 
 ## O projektu
-- Analiza i primena alata je vršena na projektu **"Monopoly"**, koji se nalazi na adresi: https://gitlab.com/matf-bg-ac-rs/course-rs/projects-2020-2021/03-monopol. 
+- Analiza i primena alata je izvršena na projektu **"Monopoly"**, koji se nalazi na adresi: https://gitlab.com/matf-bg-ac-rs/course-rs/projects-2020-2021/03-monopol. 
 
 - Projekat je implementacija društvene igre "Monopol". Na početku partije, korisnik unosi svoje korisničko ime i bira jedan od ponuđenih tokena, a takođe može i da pročita pravila igre. Kada igra počne, pored korisnika, na tabli se nalaze još tri protivnička igrača, tri bota. Implementirana su sva pravila koja zaista postoje u ovoj igri. Pobednik je takmičar koji poslednji ostane u igri, odnosno onaj koji nije bankrotirao.
 
